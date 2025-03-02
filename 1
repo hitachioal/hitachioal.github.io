@@ -1,0 +1,1268 @@
+<pre>
+*** 1 Explorando el Editor de Blueprints
+Bienvenido al increíble mundo del desarrollo de juegos con Unreal Engine 5. En este libro, aprenderemos a desarrollar juegos en Unreal Engine utilizando el lenguaje de scripting visual Blueprints, creado por Epic Games para Unreal Engine.
+
+El primer paso necesario antes de que podamos aprender sobre Blueprints es preparar nuestro entorno de desarrollo. Unreal Engine es gratuito para descargar. Aprenderemos cómo instalar Unreal Engine 5 y crear un nuevo proyecto. Después de eso, aprenderemos algunos de los conceptos básicos de Blueprints y exploraremos cada panel del Editor de Blueprints.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Instalación de Unreal Engine
+Creación de nuevos proyectos y uso de plantillas
+Scripting Visual de Blueprints
+Interfaz del Editor de Clases de Blueprints
+Agregar Componentes a un Blueprint
+Instalando Unreal Engine
+Para usar Unreal Engine, primero debes instalar el Epic Games Launcher:
+
+Accede al sitio web en https://www.unrealengine.com.
+Regístrate y descarga el Epic Games Launcher.
+Instala y abre el launcher.
+Haz clic en la pestaña Unreal Engine en el lado izquierdo.
+Haz clic en la pestaña Library que aparece en la parte superior de la pantalla.
+Haz clic en el botón + junto a ENGINE VERSIONS para agregar una versión de Unreal Engine al launcher. Puedes usar la versión más reciente disponible.
+Haz clic en el botón Install. El launcher comenzará a descargar los archivos necesarios para la instalación y puede tardar un tiempo en completarse.
+Haz clic en el botón Launch para iniciar una versión ya instalada. Es posible tener múltiples versiones de Unreal Engine instaladas en la misma máquina; simplemente configura una de ellas como la versión actual. El botón Launch en la parte superior derecha del launcher iniciará la versión actual.
+Figura 1.1 - Lanzando Unreal Engine
+
+El sistema de scripting visual Blueprints ya es una tecnología bien establecida y estable. Este libro usa la versión 5.0.0, pero los ejemplos creados en este libro deberían funcionar sin problemas en versiones posteriores.
+
+Creando nuevos proyectos y usando plantillas
+Después de iniciar Unreal Engine Editor, aparecerá el Unreal Project Browser. La caja Recientes Proyectos en la parte superior izquierda se usa para abrir proyectos existentes y las otras cajas en el lado izquierdo son categorías de plantillas usadas para crear un nuevo proyecto. La siguiente captura de pantalla muestra las plantillas de la categoría Juegos.
+
+Figura 1.2 - Plantillas en la categoría Juegos
+
+Las plantillas son contenedores básicos con algunos archivos clave y un nivel que proporcionan un punto de partida básico para diferentes tipos de proyectos. Son útiles para la prototipación rápida o para aprender los mecanismos básicos de un tipo específico de proyecto. El uso de plantillas es opcional. Todas las plantillas se pueden recrear simplemente en la plantilla en blanco. A continuación, se describen cada una de las plantillas en la categoría Juegos:
+
+First Person: Para juegos con perspectiva en primera persona. Esta plantilla presenta un personaje jugador representado por un par de brazos equipados con un arma que dispara una simple esfera como proyectil. El personaje puede ser movido por el nivel usando un teclado, controlador o joystick virtual en un dispositivo táctil.
+Handheld AR: Para aplicaciones de realidad aumentada en dispositivos Android e iOS. Esta plantilla presenta lógica en tiempo de ejecución para alternar el modo AR encendido y apagado, junto con algún código de ejemplo para la detección de impactos y manejo de estimación de luz.
+Third Person: Contiene un personaje jugable con una cámara que lo sigue. La cámara está posicionada detrás y ligeramente por encima del personaje. El personaje tiene animaciones de caminar, correr y saltar y puede ser movido por el nivel usando un teclado, controlador o joystick virtual en un dispositivo táctil.
+Top Down: Contiene un personaje controlado por un mouse con una cámara a gran distancia por encima de él. El personaje del jugador es controlado usando un mouse o pantalla táctil para hacer clic en el destino requerido y usa el sistema de navegación para evitar obstáculos al moverse a los destinos. Esta vista desde arriba se usa a menudo en juegos de rol de acción.
+Virtual Reality: Contiene las características esenciales para juegos de realidad virtual. Esta plantilla presenta locomoción por teletransporte, objetos agarrables, objetos interactivos y una cámara espectadora de VR. La plantilla tiene un nivel donde el jugador puede moverse y contiene objetos que se pueden agarrar e interactuar.
+Vehicle: Contiene un vehículo regular y un vehículo complejo con suspensión. El nivel de esta plantilla contiene una pista simple y obstáculos.
+En la parte inferior derecha del Unreal Project Browser, se encuentran las Configuraciones Predeterminadas del Proyecto con opciones de configuración del proyecto disponibles para la plantilla seleccionada. En los ejemplos de este libro, usaremos los valores seleccionados en la captura de pantalla. Estas opciones se pueden modificar más tarde en el proyecto, y son las siguientes:
+
+Blueprint/C++: Hay plantillas hechas con Blueprint o el lenguaje de programación C++. En este libro, solo usaremos plantillas de Blueprint. Un proyecto en Unreal Engine 5 se puede desarrollar usando Blueprint, C++ o una combinación de ambos. Puedes agregar código C++ a proyectos de Blueprint y Blueprint a proyectos C++.
+Plataforma de Destino: Escritorio o Móvil. Usa Escritorio si estás desarrollando tu proyecto para su uso en computadoras o consolas de juegos. Elige Móvil si tu proyecto se verá en un dispositivo móvil. En este libro, usaremos la opción Escritorio.
+Preset de Calidad: Escalable o Máximo. Estas opciones afectan el rendimiento del proyecto. La opción Escalable deshabilita algunas características complejas, y la opción Máximo habilita todas las características disponibles en la plataforma de destino. En este libro, usaremos la opción Escalable.
+Contenido de Inicio: Si esta casilla está marcada, el proyecto incluirá Contenido de Inicio. El Contenido de Inicio es un paquete de contenido con mallas simples, materiales y efectos de partículas. Los ejemplos en este libro asumen que se está utilizando el Contenido de Inicio.
+Raytracing: Si esta casilla está marcada, el proyecto usará raytracing en tiempo real, que es una característica intensiva en rendimiento. Los ejemplos en este libro no usarán raytracing.
+Selecciona la plantilla Third Person, elige una carpeta de ubicación y completa el campo Nombre para el proyecto. Selecciona las Configuraciones Predeterminadas del Proyecto mencionadas en la lista anterior y luego haz clic en el botón Crear. Después de que el proyecto se cargue, se mostrará el Editor de Niveles de Unreal Engine, como se muestra en la siguiente captura de pantalla:
+
+Figura 1.3 - El Editor de Niveles de Unreal Engine
+
+Estos son los paneles clave del Editor de Niveles:
+
+Barra de Herramientas: Ubicada en la parte superior del Editor de Niveles. Contiene botones con operaciones comúnmente usadas. Los botones de la barra de herramientas están separados en cuatro grupos. El primer grupo desde la izquierda proporciona acceso rápido a funciones como guardar tu trabajo y agregar varios objetos y código al proyecto. El segundo grupo de botones se usa para cambiar el modo de edición del Editor de Niveles. El tercer grupo permite jugar el nivel actual y proporciona varias opciones específicas de plataforma. El botón Configuraciones final en la parte derecha proporciona acceso fácil a la configuración del proyecto.
+Visor: Ubicado en el centro del Editor de Niveles. Muestra el Nivel que se está creando. Puedes usar el panel del Visor para moverte por el Nivel y agregar objetos en el Nivel. Al mantener presionado el botón derecho del mouse, mueve el mouse para rotar la cámara y usa las teclas WASD para moverte.
+Explorador de Contenido: Se puede acceder haciendo clic en el botón Content Drawer ubicado en la esquina inferior izquierda del Editor de Niveles. Se usa para gestionar los activos del proyecto. Un activo es una pieza de contenido en un proyecto de Unreal Engine. Por ejemplo, Materiales, Mallas Estáticas y Blueprints son todos activos. Si arrastras un activo desde el Explorador de Contenido y lo sueltas en el Nivel, el Editor crea una copia del activo para colocar en el Nivel.
+Organizador: Ubicado a la derecha del Editor de Niveles. Lista los objetos que están en el Nivel.
+Detalles: Ubicado a la derecha del Editor de Niveles, debajo de Organizador. Muestra las propiedades editables de un objeto que está seleccionado en el Visor.
+Ahora que tenemos una visión general del Editor de Niveles de Unreal Engine, centrémonos en el Scripting Visual de Blueprints.
+
+*** 2 Programación con Blueprints
+Este capítulo presenta los conceptos básicos de programación utilizados en Blueprints. La programación es esencialmente una forma de escribir instrucciones que serán entendidas y ejecutadas por una computadora. La mayoría de los lenguajes de programación son basados en texto, pero Blueprints presenta una forma diferente de programación visual utilizando una interfaz basada en nodos.
+
+Algunos lenguajes de programación son conocidos como lenguajes de scripting cuando existen en un entorno especial o cuando tienen un propósito bien definido. Por ejemplo, Blueprints es el lenguaje de scripting visual de Unreal Engine.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Almacenamiento de valores en variables
+Definición del comportamiento de un Blueprint con eventos y acciones
+Creación de expresiones con operadores
+Organización del script con macros y funciones
+Almacenamiento de valores en variables
+Una variable es un concepto de programación. Consiste en un identificador que apunta a una ubicación de memoria donde se puede almacenar un valor. Por ejemplo, un personaje en un juego puede tener variables para almacenar el valor de su salud, su velocidad y la cantidad de munición.
+
+Un Blueprint puede tener muchas variables de varios tipos. Las variables de un Blueprint se listan en el panel My Blueprint. Hacer clic en el botón + en la categoría VARIABLES crea una variable:
+
+Figura 2.1 - Creación de una variable
+
+El tipo de una variable define el contenido que una variable puede almacenar. Blueprint es un lenguaje fuertemente tipado. Esto significa que debes definir el tipo de variable al crearla, y este tipo no se puede modificar durante la ejecución del programa.
+
+Cuando creas una variable, sus atributos se muestran en el panel Detalles. El primer atributo de una variable es su nombre, y el segundo atributo es su tipo. Los diversos tipos son los siguientes:
+
+Figura 2.2 - Tipos de variables
+
+Cada tipo está representado por un color. Estos son los tipos de variables:
+
+Booleano: Solo puede contener valores de verdadero o falso.
+Byte: Es un número de 8 bits. Puede almacenar valores enteros entre 0 y 255.
+Entero: Es un número de 32 bits. Puede almacenar valores enteros entre -2,147,483,648 y 2,147,483,647.
+Entero64: Es un número de 64 bits. Puede almacenar valores enteros entre -9,223,372,036,854,775,808 y 9,223,372,036,854,775,807.
+Flotante: Es un número de punto flotante de 32 bits. Puede almacenar valores numéricos con partes fraccionarias y tiene una precisión de siete dígitos decimales.
+Doble: Es un número de punto flotante de 64 bits. Puede almacenar valores numéricos con partes fraccionarias y tiene una precisión de 16 dígitos decimales.
+Nombre: Pieza de texto utilizada como identificador de objeto.
+Cadena: Puede almacenar un grupo de caracteres alfanuméricos.
+Texto: Este tipo se usa para texto que será localizado, lo que permite una implementación más fácil de la traducción a diferentes idiomas.
+Vector: Contiene los valores flotantes X, Y y Z, que representan un vector 3D.
+Rotador: Contiene los valores flotantes X (Rotación), Y (Inclinación) y Z (Guion), que representan una rotación en el espacio 3D.
+Transformación: Puede almacenar ubicación, rotación y escala.
+También hay otros tipos de variables relacionados con Estructura, Interfaz, Tipos de Objeto y Enum. Aprenderemos sobre estos tipos en los próximos capítulos.
+
+La siguiente captura de pantalla muestra el panel Detalles con los atributos que se pueden modificar en VARIABLE:
+
+Figura 2.3 - Atributos de una variable
+
+Estos atributos se pueden describir individualmente de la siguiente manera:
+
+Nombre de Variable: Es el identificador de la variable.
+Tipo de Variable: Especifica el tipo de valores que se pueden almacenar en esta variable.
+Editable en Instancia: Cuando esta casilla está marcada, cada copia de este Blueprint colocada en el nivel puede almacenar un valor diferente en esta variable. De lo contrario, se comparte el mismo valor inicial entre todas las copias, llamadas instancias.
+Solo Lectura de Blueprint: Si está marcada, la variable no se puede cambiar mediante nodos de Blueprint.
+Información sobre herramientas: Contiene información que se muestra cuando el cursor se sitúa sobre la variable.
+Exponer al Inicio: Si está marcada, la variable se puede establecer al generar el Blueprint.
+Privada: Si está marcada, los Blueprints hijos no pueden modificarla.
+Exponer a Cinemáticas: Si está marcada, esta variable se expondrá a Sequencer.
+Categoría: Se puede usar para organizar todas las variables en el Blueprint.
+Rango de Deslizador: Establece los valores mínimo y máximo que se utilizarán en un deslizador de interfaz de usuario para modificar esta variable.
+Rango de Valor: Establece los valores mínimo y máximo permitidos para esta variable.
+Replicación y Condición de Replicación: Se utilizan en juegos en red.
+VALOR PREDETERMINADO: Contiene el valor inicial de la variable. El Blueprint debe ser compilado antes de poder establecer el valor predeterminado.
+Las variables se utilizan para representar el estado actual de un Blueprint, pero el comportamiento se define mediante eventos y acciones, que se discutirán en la siguiente sección.
+
+*** 3 Programación Orientada a Objetos y el Framework de Juego
+Los Blueprints se basan en los principios de la programación orientada a objetos (OOP). Uno de los objetivos de la OOP es acercar los conceptos de programación al mundo real.
+
+El Framework de Juego de Unreal Engine abarca todos los sistemas centrales necesarios para un videojuego, como las reglas del juego, la entrada y los controles del jugador, las cámaras y las interfaces de usuario.
+
+En este capítulo, aprenderemos sobre los siguientes temas:
+
+Familiarizarse con los conceptos de OOP
+Gestionar Actores
+Explorar las clases del Framework de Juego
+Familiarizándose con los conceptos de OOP
+Aprendamos sobre algunos conceptos elementales de OOP, como clases, instancias e herencia. Estos conceptos te ayudarán a aprender sobre varios elementos del scripting visual de Blueprints.
+
+Clases
+En OOP, una clase es una plantilla para crear objetos y proporcionar los valores iniciales para el estado (variables o atributos) e implementaciones del comportamiento (eventos o funciones).
+
+Muchos objetos del mundo real se pueden pensar de la misma manera, incluso si son únicos. Como un ejemplo muy simple, podemos pensar en una clase de persona. En esta clase, podemos tener atributos como nombre y altura, y acciones como moverse y comer. Usando la clase de persona, podemos crear varios objetos de esta clase. Cada objeto representa a una persona con diferentes valores para sus atributos de nombre y altura.
+
+Cuando creamos un Blueprint, estamos creando una nueva clase que se puede usar para crear objetos en los niveles de un juego. Como muestra la siguiente captura de pantalla, la opción que aparece al crear un nuevo activo de Blueprint es Blueprint Class:
+
+Figura 3.1 - Creación de una clase de Blueprint
+
+El encapsulamiento es otro concepto importante. Permite ocultar la complejidad de una clase cuando se ve desde el punto de vista de otra clase. Las variables y funciones de una clase de Blueprint pueden ser privadas, lo que significa que solo se pueden acceder y modificar en la clase de Blueprint donde se crearon. Las variables y funciones públicas son aquellas a las que pueden acceder otras clases de Blueprint.
+
+Instancias
+Un objeto creado a partir de una clase también se conoce como una instancia de esa clase. Cada vez que arrastras una clase de Blueprint desde el Content Browser y la sueltas en el Nivel, creas una nueva instancia de esta clase de Blueprint.
+
+Todas las instancias se crean con los mismos valores predeterminados para sus variables como se definieron en la clase de Blueprint. Sin embargo, si una variable está marcada como Editable en Instancia, el valor de la variable puede cambiarse en el Nivel para cada una de las instancias sin afectar los valores mantenidos por las otras instancias.
+
+Por ejemplo, imagina que se creó un Blueprint para representar un tipo de personaje en un juego. La siguiente captura de pantalla muestra que se agregaron tres instancias de esta clase de Blueprint al Nivel:
+
+Figura 3.2 - Instancias de una clase de Blueprint
+
+Herencia
+En OOP, las clases pueden heredar variables y funciones de otras clases. Cuando estamos creando un Blueprint, lo primero que debemos hacer es elegir la clase padre de este Blueprint. Una clase de Blueprint solo puede tener una clase padre, pero puede tener varias clases hijas. La clase padre también se conoce como superclase, mientras que la clase hija se conoce como subclase.
+
+Como ejemplo de uso de la herencia, imagina que estamos creando varios Blueprints que representan diferentes tipos de armas en un juego. Podemos crear un Blueprint de base llamado Arma con todo lo que es común a todas las armas en el juego. Luego, podemos crear los Blueprints que representan cada una de las armas usando la clase Arma como la clase padre. La siguiente figura muestra la jerarquía entre estas clases:
+
+Figura 3.3 - Jerarquía de clases
+
+Espero que esta traducción te sea útil. Si necesitas más detalles o tienes alguna otra pregunta, no dudes en decírmelo.
+
+*** 4 Comprendiendo la Comunicación de Blueprints
+En este capítulo, exploraremos los diferentes tipos de comunicación de Blueprints, que permiten que un Blueprint acceda a la información de otro Blueprint. Esto es crucial para crear interacciones complejas y dinámicas dentro de tu juego.
+
+La comunicación de Blueprints es fundamental para conectar diferentes partes de tu juego, permitiendo que los objetos interactúen entre sí y respondan a eventos y acciones. Aprender a utilizar estas técnicas te permitirá crear experiencias de juego más ricas y envolventes.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Comunicación Directa de Blueprints
+Enlace de Eventos
+Uso de Casting en Blueprints
+Comunicación de Level Blueprints
+Uso de Disparadores de Eventos
+Comunicación Directa de Blueprints
+La comunicación directa de Blueprints se refiere a la capacidad de un Blueprint para llamar directamente a funciones o acceder a variables de otro Blueprint. Esto se logra utilizando referencias a otros Blueprints dentro del Editor de Blueprints.
+
+Para establecer una comunicación directa, puedes crear una referencia a otro Blueprint utilizando una variable de tipo Object o una variable específica del tipo de Blueprint al que deseas acceder. Luego, puedes usar esta referencia para llamar a funciones o acceder a variables en el Blueprint de destino.
+
+Enlace de Eventos
+El enlace de eventos permite que un Blueprint responda a eventos que ocurren en otro Blueprint. Esto es útil para crear interacciones dinámicas donde un evento en un Blueprint desencadena una acción en otro.
+
+Para enlazar eventos, puedes usar el sistema de delegación de eventos de Unreal Engine. Esto implica crear un evento personalizado en un Blueprint y luego enlazarlo a una función en otro Blueprint que se ejecutará cuando ocurra el evento.
+
+Uso de Casting en Blueprints
+El casting es una técnica que permite convertir un objeto de un tipo a otro dentro de Blueprints. Esto es útil cuando necesitas acceder a funciones o variables específicas de un tipo de Blueprint, pero solo tienes una referencia genérica al objeto.
+
+Para realizar casting, puedes usar el nodo "Cast To" en el Editor de Blueprints. Este nodo intenta convertir un objeto a un tipo específico de Blueprint, y si tiene éxito, puedes acceder a las funciones y variables específicas de ese tipo.
+
+Comunicación de Level Blueprints
+El Level Blueprint es un tipo especial de Blueprint que se asocia con un nivel específico en tu juego. Puedes usar el Level Blueprint para controlar eventos y acciones que afectan a todo el nivel, como cambiar la iluminación o activar secuencias de eventos.
+
+La comunicación de Level Blueprints implica llamar a funciones o acceder a variables dentro del Level Blueprint desde otros Blueprints en el nivel. Esto se puede hacer utilizando referencias al Level Blueprint o mediante el enlace de eventos.
+
+Uso de Disparadores de Eventos
+Los disparadores de eventos son una forma poderosa de comunicar eventos entre Blueprints. Un disparador de eventos es un objeto que puede enviar eventos a múltiples Blueprints que están escuchando ese evento.
+
+Para usar disparadores de eventos, primero debes crear un disparador de eventos en un Blueprint. Luego, otros Blueprints pueden suscribirse a este disparador para recibir notificaciones cuando ocurra el evento. Esto permite una comunicación flexible y desacoplada entre diferentes partes de tu juego.
+
+*** 5 Interacción de Objetos con Blueprints
+En este capítulo, aprenderemos a traer nuevos objetos a un nivel para ayudar a construir el mundo en el que se desarrollará el juego. Nos centraremos en manipular materiales en los objetos, primero a través del editor de objetos y luego activándolos durante el tiempo de ejecución mediante Blueprints.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Creación del proyecto y el primer nivel
+Adición de objetos al nivel
+Configuración del Blueprint objetivo
+Exploración de materiales
+Creación de materiales
+Gestión de un material
+Mejora del Blueprint
+Adición de movimiento
+Cambio de la configuración de movilidad y colisión del Actor
+Desglose de nuestro objetivo
+Preparación de la dirección para cálculos
+Obtención de la velocidad relativa utilizando el tiempo delta
+Actualización de la ubicación
+Cambio de dirección
+Prueba de objetivos en movimiento
+Creación del proyecto y el primer nivel
+Para comenzar, crearemos un nuevo proyecto en Unreal Engine utilizando una de las plantillas disponibles. Esto nos proporcionará un punto de partida básico con algunos elementos y configuraciones predefinidas.
+
+Abre el Unreal Engine Launcher y selecciona la versión de Unreal Engine que deseas usar.
+Haz clic en "New Project" y elige una plantilla que se adapte a tu tipo de juego, como la plantilla "Third Person".
+Configura las opciones del proyecto, como el nombre, la ubicación y las configuraciones predeterminadas.
+Una vez creado el proyecto, se abrirá el Editor de Niveles con un nivel básico configurado.
+Adición de objetos al nivel
+Para construir el mundo del juego, necesitamos agregar objetos al nivel. Estos objetos pueden ser mallas estáticas, luces, cámaras, entre otros.
+
+En el Content Browser, busca y selecciona el objeto que deseas agregar al nivel.
+Arrástralo y suéltalo en el Viewport para colocarlo en el nivel.
+Ajusta la posición, rotación y escala del objeto según sea necesario utilizando las herramientas de transformación en el Viewport.
+Configuración del Blueprint objetivo
+Una vez que hayas agregado los objetos al nivel, puedes configurar su comportamiento utilizando Blueprints. Esto implica crear o modificar un Blueprint para definir cómo debe interactuar el objeto con otros elementos del juego.
+
+Selecciona el objeto en el nivel.
+En el panel Details, busca la sección de Blueprints y asigna o crea un Blueprint para el objeto.
+Abre el Blueprint y comienza a definir su comportamiento utilizando el Event Graph.
+Exploración de materiales
+Los materiales definen la apariencia visual de los objetos en el juego. Puedes crear y modificar materiales para darles a tus objetos un aspecto único y atractivo.
+
+En el Content Browser, haz clic derecho y selecciona "Material" para crear un nuevo material.
+Abre el Material Editor para modificar las propiedades del material, como el color, la textura y la reflectancia.
+Asigna el material a un objeto arrastrándolo sobre la malla en el Viewport o configurándolo en el panel Details del objeto.
+Creación de materiales
+Crear materiales desde cero te permite tener un control total sobre la apariencia de tus objetos. Puedes combinar diferentes texturas y propiedades para lograr el efecto deseado.
+
+En el Material Editor, utiliza nodos como Texture Sample, Multiply y Add para combinar texturas y colores.
+Configura las propiedades del material, como Metalic y Roughness, para ajustar cómo interactúa con la luz.
+Guarda y aplica el material a tus objetos para ver los cambios en el Viewport.
+Gestión de un material
+Una vez que hayas creado un material, puedes gestionarlo y ajustarlo según sea necesario. Esto incluye modificar sus propiedades o reemplazar texturas para mejorar la apariencia visual.
+
+Selecciona el objeto con el material aplicado en el Viewport.
+En el panel Details, busca la sección de Materials y haz clic en el material asignado para editarlo.
+Realiza los ajustes necesarios en el Material Editor y guarda los cambios.
+Mejora del Blueprint
+Para mejorar el comportamiento de los objetos en tu juego, puedes agregar funcionalidades adicionales a los Blueprints. Esto incluye la adición de movimiento, interacciones y respuestas a eventos.
+
+Abre el Blueprint del objeto que deseas mejorar.
+Utiliza el Event Graph para agregar nodos de eventos y acciones que definan el nuevo comportamiento.
+Prueba el Blueprint en el nivel para asegurarte de que funciona como se espera.
+Adición de movimiento
+Agregar movimiento a los objetos puede hacer que tu juego sea más dinámico e interactivo. Puedes definir cómo y cuándo se mueven los objetos utilizando Blueprints.
+
+En el Event Graph del Blueprint, agrega nodos de eventos que desencadenen el movimiento, como Input events.
+Utiliza nodos de acción para definir la lógica de movimiento, como cambiar la ubicación del objeto con el tiempo.
+Prueba el movimiento en el nivel para asegurarte de que es fluido y realista.
+Cambio de la configuración de movilidad y colisión del Actor
+La configuración de movilidad y colisión de un Actor determina cómo interactúa con otros objetos en el juego. Puedes ajustar estas configuraciones para lograr el comportamiento deseado.
+
+Selecciona el Actor en el nivel.
+En el panel Details, busca las secciones de Mobility y Collision.
+Ajusta las configuraciones según sea necesario, como cambiar el tipo de movilidad a "Movable" o ajustar las configuraciones de colisión.
+Desglose de nuestro objetivo
+Antes de implementar el comportamiento complejo, es útil desglosar el objetivo en pasos más pequeños y manejables. Esto te ayudará a enfocarte en una parte del problema a la vez.
+
+Define claramente el objetivo final del comportamiento del objeto.
+Divide el objetivo en tareas más pequeñas y específicas.
+Implementa cada tarea una por una en el Blueprint, probando después de cada cambio.
+Preparación de la dirección para cálculos
+Para calcular movimientos y direcciones en el juego, necesitas preparar las variables y nodos necesarios en el Blueprint.
+
+Crea variables para almacenar la dirección y la velocidad del objeto.
+Utiliza nodos de operadores para realizar cálculos basados en estas variables.
+Asegúrate de que los cálculos se actualicen en cada frame utilizando el evento Event Tick.
+Obtención de la velocidad relativa utilizando el tiempo delta
+El tiempo delta es la diferencia de tiempo entre frames, y es crucial para calcular movimientos suaves y consistentes.
+
+En el Event Graph, utiliza el nodo Delta Time para obtener el tiempo transcurrido desde el último frame.
+Multiplica el tiempo delta por la velocidad deseada para calcular el desplazamiento en cada frame.
+Actualiza la ubicación del objeto en función del desplazamiento calculado.
+Actualización de la ubicación
+Actualizar la ubicación de un objeto en función de sus cálculos de movimiento es esencial para un comportamiento dinámico.
+
+Utiliza nodos de acción para cambiar la ubicación del objeto en el Event Graph.
+Asegúrate de que la ubicación se actualice en cada frame para un movimiento suave.
+Prueba el movimiento en el nivel para asegurarte de que es fluido y realista.
+Cambio de dirección
+Cambiar la dirección de un objeto en movimiento puede hacer que el juego sea más desafiante e interesante.
+
+Utiliza nodos de entrada para detectar cambios en la dirección deseada.
+Actualiza la variable de dirección en el Blueprint en función de la entrada del jugador.
+Asegúrate de que el objeto cambie de dirección suavemente utilizando interpolación o suavizado.
+Prueba de objetivos en movimiento
+Probar los objetivos en movimiento es crucial para asegurarte de que el comportamiento del objeto sea el esperado.
+
+Coloca el objeto en el nivel y configura su Blueprint para que se mueva.
+Juega el nivel y observa el comportamiento del objeto.
+Ajusta el Blueprint según sea necesario para corregir cualquier problema o mejorar el comportamiento.
+
+*** 6 Mejora de las Habilidades del Jugador
+En este capítulo, aprenderemos a usar Blueprints para generar nuevos objetos durante el juego y cómo vincular acciones en Blueprints a las entradas de control del jugador. También aprenderemos a crear Blueprints que permitan a los objetos reaccionar a colisiones con los proyectiles generados.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Adición de la funcionalidad de correr
+Desglose del movimiento del personaje
+Personalización de las entradas de control
+Adición de una habilidad de sprint
+Animación de una vista ampliada
+Uso de una línea de tiempo para suavizar transiciones
+Utilización de la munición y los objetivos eliminados
+Adición de sonido y efectos de partículas
+Cambio de estados de los objetivos con ramificaciones
+Activación de efectos de sonido, explosiones y destrucción
+Adición de la funcionalidad de correr
+Para hacer que el personaje del jugador pueda correr, necesitamos agregar una nueva funcionalidad que aumente su velocidad de movimiento cuando se activa la entrada de correr.
+
+Abre el Blueprint del personaje del jugador.
+En el Event Graph, busca el nodo de entrada para la acción de correr.
+Crea una variable para almacenar la velocidad de movimiento actual del personaje.
+Utiliza un nodo Branch para verificar si la acción de correr está activada.
+Si está activada, multiplica la velocidad de movimiento base por un factor para aumentar la velocidad.
+Actualiza la velocidad de movimiento del personaje en función del resultado.
+Desglose del movimiento del personaje
+El movimiento del personaje se puede desglosar en varias partes, como caminar, correr y saltar. Cada una de estas acciones puede tener su propia lógica y animaciones.
+
+Define las variables necesarias para controlar el estado de movimiento del personaje, como si está caminando, corriendo o saltando.
+Utiliza nodos de entrada para detectar las acciones del jugador, como presionar las teclas de movimiento o el botón de salto.
+Implementa la lógica para cambiar el estado de movimiento del personaje en función de las entradas del jugador.
+Personalización de las entradas de control
+Personalizar las entradas de control permite a los jugadores ajustar la configuración de control a sus preferencias, mejorando la experiencia de juego.
+
+En el Blueprint del personaje, busca los nodos de entrada para las acciones de movimiento.
+Crea variables para almacenar las configuraciones de control personalizadas, como la sensibilidad del mouse o la disposición de los botones.
+Utiliza estas variables para ajustar la lógica de entrada en el Event Graph.
+Adición de una habilidad de sprint
+Agregar una habilidad de sprint permite al personaje del jugador moverse rápidamente durante un corto período de tiempo.
+
+En el Blueprint del personaje, crea una nueva variable booleana para activar el sprint.
+Utiliza un nodo de entrada para detectar cuando el jugador activa la acción de sprint.
+Si el sprint está activado, aumenta la velocidad de movimiento del personaje.
+Limita la duración del sprint utilizando una línea de tiempo o un temporizador.
+Animación de una vista ampliada
+Animar una vista ampliada puede mejorar la inmersión del jugador al acercar la cámara al personaje durante ciertas acciones, como apuntar con un arma.
+
+En el Blueprint del personaje, crea una nueva variable para controlar el estado de la vista ampliada.
+Utiliza un nodo de entrada para detectar cuando el jugador activa la acción de vista ampliada.
+Si la vista ampliada está activada, ajusta la posición y el campo de visión de la cámara para acercarla al personaje.
+Uso de una línea de tiempo para suavizar transiciones
+Las líneas de tiempo permiten crear transiciones suaves entre diferentes estados o acciones en el juego.
+
+En el Blueprint del personaje, agrega una línea de tiempo para controlar la transición entre estados, como cambiar de caminar a correr.
+Define los puntos clave en la línea de tiempo para ajustar las variables de movimiento y animación.
+Utiliza la línea de tiempo para interpolar suavemente entre los estados.
+Utilización de la munición y los objetivos eliminados
+Llevar un seguimiento de la munición y los objetivos eliminados es esencial para la mecánica de juego y la retroalimentación al jugador.
+
+Crea variables en el Blueprint del personaje para almacenar la cantidad de munición y el número de objetivos eliminados.
+Utiliza nodos de entrada para detectar cuando el jugador dispara o elimina un objetivo.
+Actualiza las variables de munición y objetivos eliminados en función de las acciones del jugador.
+Adición de sonido y efectos de partículas
+Los efectos de sonido y partículas mejoran la experiencia del jugador al proporcionar retroalimentación visual y auditiva durante las acciones del juego.
+
+En el Blueprint del personaje, agrega nodos de acción para reproducir efectos de sonido y partículas cuando ocurren eventos específicos, como disparar un arma.
+Configura los parámetros de los efectos de sonido y partículas para ajustar su volumen, duración y apariencia.
+Cambio de estados de los objetivos con ramificaciones
+Cambiar los estados de los objetivos con ramificaciones permite crear comportamientos dinámicos y reactivos en el juego.
+
+En el Blueprint del objetivo, crea variables para almacenar diferentes estados, como "vivo" o "muerto".
+Utiliza nodos Branch para cambiar entre diferentes ramas de lógica en función del estado del objetivo.
+Implementa la lógica para cambiar el estado del objetivo en respuesta a eventos, como ser alcanzado por un proyectil.
+Activación de efectos de sonido, explosiones y destrucción
+Activar efectos de sonido, explosiones y destrucción mejora la inmersión del jugador al proporcionar retroalimentación visual y auditiva durante las interacciones del juego.
+
+En el Blueprint del objetivo, agrega nodos de acción para reproducir efectos de sonido y partículas cuando ocurren eventos específicos, como ser destruido.
+Configura los parámetros de los efectos de sonido y partículas para ajustar su volumen, duración y apariencia.
+Implementa la lógica para destruir el objeto y eliminarlo del juego cuando sea necesario.
+
+*** 7 Creación de Elementos de Interfaz de Usuario en Pantalla
+En este capítulo, aprenderemos a configurar una interfaz gráfica de usuario (GUI) que rastreará la salud, la resistencia, la munición y el objetivo actual del jugador. Aprenderemos a configurar una interfaz de usuario básica utilizando el Editor de GUI de Unreal y a usar Blueprints para vincular la interfaz con los valores del juego.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Creación de medidores simples de UI con UMG
+Creación de enlaces para salud y resistencia
+Personalización de la apariencia del medidor
+Creación de munición y objetivos eliminados
+Visualización del HUD
+Conexión de valores de UI a variables del jugador
+Creación de enlaces para salud y resistencia
+Creación de enlaces de texto para la munición y los objetivos eliminados
+Seguimiento de la munición y los objetivos eliminados
+Incremento del contador de objetivos eliminados
+Creación de medidores simples de UI con UMG
+UMG (Unreal Motion Graphics) es un sistema de interfaz de usuario que permite crear interfaces interactivas y dinámicas para juegos.
+
+En el Content Browser, haz clic derecho y selecciona "User Interface" > "Widget Blueprint" para crear un nuevo Widget Blueprint.
+Abre el Widget Blueprint y utiliza el Designer para agregar elementos de UI como Text Blocks, Progress Bars y Canvas Panels.
+Configura las propiedades de los elementos de UI para ajustar su apariencia y comportamiento.
+Creación de enlaces para salud y resistencia
+Para mostrar la salud y la resistencia del jugador en la UI, necesitamos crear enlaces que conecten los valores del jugador con los elementos de la UI.
+
+En el Widget Blueprint, agrega variables para almacenar los valores de salud y resistencia.
+Utiliza nodos de enlace para conectar estas variables a los elementos de UI correspondientes, como Progress Bars.
+Actualiza los valores de salud y resistencia en tiempo real durante el juego.
+Personalización de la apariencia del medidor
+Personalizar la apariencia de los medidores de UI puede mejorar la estética y la claridad de la interfaz.
+
+Selecciona el elemento de UI en el Designer del Widget Blueprint.
+Ajusta las propiedades de apariencia, como el color, el tamaño y la fuente, para que coincidan con el estilo de tu juego.
+Utiliza materiales y texturas para crear efectos visuales avanzados.
+Creación de munición y objetivos eliminados
+Mostrar la munición y los objetivos eliminados en la UI proporciona al jugador información crucial sobre su progreso y capacidades.
+
+En el Widget Blueprint, agrega elementos de UI para mostrar la munición y los objetivos eliminados, como Text Blocks.
+Crea variables para almacenar los valores de munición y objetivos eliminados.
+Utiliza nodos de enlace para conectar estas variables a los elementos de UI correspondientes.
+Visualización del HUD
+El HUD (Heads-Up Display) es una parte esencial de la interfaz de usuario que muestra información importante directamente en la pantalla del jugador.
+
+En el Blueprint del personaje del jugador, agrega una referencia al Widget Blueprint del HUD.
+Utiliza nodos de acción para mostrar y ocultar el HUD según sea necesario durante el juego.
+Asegúrate de que el HUD se actualice en tiempo real para reflejar los cambios en el estado del jugador.
+Conexión de valores de UI a variables del jugador
+Para que la UI refleje con precisión el estado del jugador, necesitamos conectar los valores de la UI a las variables del jugador.
+
+En el Blueprint del personaje del jugador, crea variables para almacenar los valores de salud, resistencia, munición y objetivos eliminados.
+Utiliza nodos de enlace para conectar estas variables a los elementos de UI correspondientes en el Widget Blueprint del HUD.
+Actualiza los valores de la UI en tiempo real durante el juego.
+Creación de enlaces para salud y resistencia
+Crear enlaces para la salud y la resistencia permite que la UI refleje con precisión el estado del jugador.
+
+En el Widget Blueprint del HUD, agrega elementos de UI para mostrar la salud y la resistencia, como Progress Bars.
+Utiliza nodos de enlace para conectar las variables de salud y resistencia del jugador a los elementos de UI correspondientes.
+Asegúrate de que los valores de la UI se actualicen en tiempo real durante el juego.
+Creación de enlaces de texto para la munición y los objetivos eliminados
+Mostrar la munición y los objetivos eliminados en la UI proporciona al jugador información crucial sobre su progreso y capacidades.
+
+En el Widget Blueprint del HUD, agrega elementos de UI para mostrar la munición y los objetivos eliminados, como Text Blocks.
+Utiliza nodos de enlace para conectar las variables de munición y objetivos eliminados del jugador a los elementos de UI correspondientes.
+Asegúrate de que los valores de la UI se actualicen en tiempo real durante el juego.
+Seguimiento de la munición y los objetivos eliminados
+Llevar un seguimiento de la munición y los objetivos eliminados es esencial para la mecánica del juego y la retroalimentación al jugador.
+
+En el Blueprint del personaje del jugador, crea variables para almacenar los valores de munición y objetivos eliminados.
+Utiliza nodos de entrada para detectar cuando el jugador dispara o elimina un objetivo.
+Actualiza las variables de munición y objetivos eliminados en función de las acciones del jugador.
+Incremento del contador de objetivos eliminados
+Incrementar el contador de objetivos eliminados permite llevar un seguimiento del progreso del jugador durante el juego.
+
+En el Blueprint del personaje del jugador, crea una variable para almacenar el número de objetivos eliminados.
+Utiliza nodos de entrada para detectar cuando el jugador elimina un objetivo.
+Incrementa la variable de objetivos eliminados cada vez que se elimina un objetivo.
+ 
+*** 8 Creación de Restricciones y Objetivos de Juego
+En este capítulo, aprenderemos a restringir las habilidades del jugador, definir los objetivos del juego para un nivel y rastrear esos objetivos. Aprenderemos a configurar paquetes de munición recolectables que rellenen la munición del arma del jugador, así como a utilizar el Level Blueprint para definir una condición de victoria para nuestro juego.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Restricción de las acciones del jugador
+Drenaje y regeneración de resistencia
+Prevención de acciones de disparo cuando se agota la munición
+Creación de objetos recolectables
+Establecimiento de una condición de victoria en el juego
+Restricción de las acciones del jugador
+Restringir las acciones del jugador puede hacer que el juego sea más desafiante y estratégico. Esto se puede lograr limitando ciertas habilidades o recursos.
+
+En el Blueprint del personaje del jugador, crea variables para rastrear recursos como resistencia y munición.
+Utiliza nodos Branch para verificar si el jugador tiene suficientes recursos antes de permitir ciertas acciones, como disparar o correr.
+Implementa la lógica para restringir las acciones del jugador en función de los valores de los recursos.
+Drenaje y regeneración de resistencia
+La resistencia es un recurso que se puede agotar con el tiempo o con ciertas acciones, como correr o realizar ataques especiales.
+
+En el Blueprint del personaje del jugador, crea una variable para rastrear la resistencia.
+Utiliza nodos de tiempo o eventos para drenar la resistencia durante acciones específicas.
+Implementa la lógica para regenerar la resistencia gradualmente cuando el jugador no está realizando acciones que la agoten.
+Prevención de acciones de disparo cuando se agota la munición
+Evitar que el jugador dispare cuando no tiene munición es esencial para mantener la coherencia del juego.
+
+En el Blueprint del personaje del jugador, crea una variable para rastrear la munición disponible.
+Utiliza un nodo Branch para verificar si la munición es mayor que cero antes de permitir la acción de disparo.
+Implementa la lógica para prevenir el disparo y proporcionar retroalimentación al jugador cuando la munición esté agotada.
+Creación de objetos recolectables
+Los objetos recolectables, como paquetes de munición, pueden mejorar la experiencia del jugador al permitirle reponer recursos durante el juego.
+
+Crea un nuevo Blueprint para el objeto recolectable, como un paquete de munición.
+En el Blueprint del objeto recolectable, agrega la lógica para detectar cuando el jugador interactúa con el objeto.
+Implementa la lógica para reponer la munición del jugador cuando recolecta el objeto y elimina el objeto del juego.
+Establecimiento de una condición de victoria en el juego
+Definir una condición de victoria proporciona al jugador un objetivo claro y una meta a alcanzar.
+
+En el Level Blueprint, crea variables para rastrear el progreso del jugador hacia la condición de victoria.
+Utiliza nodos de eventos y acciones para verificar si se cumplen las condiciones de victoria.
+Implementa la lógica para mostrar una pantalla de victoria o finalizar el nivel cuando se alcance la condición de victoria.
+Displaying a Target Goal in the HUD
+Mostrar el objetivo del juego en el HUD proporciona al jugador una referencia visual de su progreso.
+
+En el Widget Blueprint del HUD, agrega un elemento de UI para mostrar el objetivo del juego, como un Text Block.
+Crea una variable en el Widget Blueprint para almacenar el valor del objetivo del juego.
+Utiliza nodos de enlace para conectar la variable del objetivo del juego al elemento de UI correspondiente.
+Actualiza el valor del objetivo del juego en el HUD en tiempo real durante el juego.
+Displaying a Win Menu Screen
+Mostrar una pantalla de menú de victoria proporciona al jugador una confirmación visual de su éxito.
+
+Crea un nuevo Widget Blueprint para la pantalla del menú de victoria.
+En el Widget Blueprint del menú de victoria, agrega elementos de UI para mostrar información relevante, como el puntaje del jugador o el tiempo completado.
+En el Level Blueprint, utiliza nodos de eventos y acciones para mostrar la pantalla del menú de victoria cuando se alcance la condición de victoria.
+Engaging a Win Condition
+Activar una condición de victoria es esencial para finalizar el nivel o el juego y proporcionar al jugador una sensación de logro.
+
+En el Level Blueprint, crea la lógica para verificar si se cumplen las condiciones de victoria.
+Utiliza nodos de eventos y acciones para activar la condición de victoria y mostrar la pantalla del menú de victoria.
+Implementa cualquier lógica adicional necesaria para finalizar el nivel o el juego, como guardar el progreso del jugador o reiniciar el nivel.
+
+*** 9 Construcción de Enemigos Inteligentes con Inteligencia Artificial
+En este capítulo, aprenderemos a crear enemigos inteligentes que puedan perseguir al jugador a lo largo del nivel. Este es un capítulo crucial que cubre cómo crear una IA de zombi enemiga que perseguirá al jugador. Aprenderemos a configurar una malla de navegación en nuestro nivel y a usar Blueprints para que los enemigos se desplacen entre puntos de patrulla.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Configuración del actor enemigo para navegar
+Importación desde el Marketplace
+Expansión del área de juego
+Hacer que el nivel sea transitable con un activo NavMesh
+Creación de los activos de IA
+Configuración del BP_EnemyCharacter Blueprint
+Creación del comportamiento de navegación
+Configuración de los puntos de patrulla
+Creación de las claves del Blackboard
+Creación de las variables en BP_EnemyCharacter
+Actualización de la clave del punto de patrulla actual
+Superposición de un punto de patrulla
+Ejecución del Behavior Tree en el Controlador de IA
+Enseñar a nuestra IA a caminar con el Behavior Tree
+Selección de los puntos de patrulla en la instancia de BP_EnemyCharacter
+Hacer que la IA persiga al jugador
+Darle al enemigo capacidad de visión con PawnSensing
+Creación de una tarea de Behavior Tree
+Adición de condiciones al Behavior Tree
+Creación de un comportamiento de persecución
+Configuración del actor enemigo para navegar
+Para que los enemigos puedan navegar por el nivel, necesitamos configurar un actor enemigo con las capacidades de navegación adecuadas.
+
+Crea un nuevo Blueprint basado en la clase Character.
+En el Blueprint del enemigo, agrega un componente de Nav Mesh para habilitar la navegación.
+Configura las propiedades del componente de Nav Mesh para definir cómo el enemigo interactuará con el entorno.
+Importación desde el Marketplace
+El Marketplace de Unreal Engine ofrece una variedad de activos que puedes usar para mejorar tu proyecto, incluyendo modelos de enemigos y comportamientos de IA.
+
+Abre el Marketplace desde el Unreal Engine Editor.
+Busca y descarga activos relevantes, como modelos de zombis o paquetes de comportamiento de IA.
+Importa los activos descargados a tu proyecto y configúralos según sea necesario.
+Expansión del área de juego
+Para proporcionar un entorno más rico y desafiante, puedes expandir el área de juego agregando más elementos y complejidad al nivel.
+
+En el Editor de Niveles, agrega nuevos objetos y estructuras para expandir el área de juego.
+Asegúrate de que el entorno sea lo suficientemente grande y variado para permitir una navegación interesante.
+Hacer que el nivel sea transitable con un activo NavMesh
+El activo NavMesh es esencial para permitir que los enemigos naveguen por el nivel. Define las áreas por las que los enemigos pueden moverse.
+
+En el Editor de Niveles, agrega un activo NavMesh al nivel.
+Configura el activo NavMesh para cubrir las áreas del nivel donde los enemigos deben poder moverse.
+Genera la malla de navegación para que los enemigos puedan calcular rutas a través del nivel.
+Creación de los activos de IA
+Los activos de IA, como los Behavior Trees y los Blackboards, son esenciales para definir el comportamiento de los enemigos.
+
+Crea un nuevo Behavior Tree para el enemigo.
+Define las tareas y condiciones en el Behavior Tree para controlar el comportamiento del enemigo.
+Crea un Blackboard para almacenar datos que el Behavior Tree pueda usar para tomar decisiones.
+Configuración del BP_EnemyCharacter Blueprint
+El Blueprint del personaje enemigo debe configurarse para interactuar con el Behavior Tree y el Blackboard.
+
+Abre el Blueprint del personaje enemigo.
+Agrega las variables y funciones necesarias para controlar el comportamiento del enemigo.
+Conecta el Blueprint con el Behavior Tree y el Blackboard para permitir la comunicación entre ellos.
+Creación del comportamiento de navegación
+El comportamiento de navegación permite a los enemigos moverse por el nivel de manera inteligente.
+
+En el Behavior Tree, agrega tareas de navegación para mover al enemigo entre puntos de patrulla.
+Define los puntos de patrulla en el nivel donde el enemigo debe moverse.
+Configura la lógica para que el enemigo navegue entre los puntos de patrulla de manera eficiente.
+Configuración de los puntos de patrulla
+Los puntos de patrulla son ubicaciones específicas en el nivel donde el enemigo debe moverse durante su rutina de patrullaje.
+
+En el Editor de Niveles, agrega actores o marcadores para definir los puntos de patrulla.
+Configura las propiedades de los puntos de patrulla para que el enemigo los reconozca y navegue hacia ellos.
+Creación de las claves del Blackboard
+Las claves del Blackboard se utilizan para almacenar y compartir datos entre el Behavior Tree y el Blueprint del enemigo.
+
+En el Blackboard, crea claves para almacenar información relevante, como la ubicación del jugador o el estado del enemigo.
+Configura las claves para que se actualicen dinámicamente durante el juego.
+Creación de las variables en BP_EnemyCharacter
+Las variables en el Blueprint del personaje enemigo se utilizan para almacenar datos específicos del enemigo.
+
+En el Blueprint del personaje enemigo, crea variables para rastrear el estado del enemigo, como la salud o la velocidad de movimiento.
+Utiliza estas variables en el Behavior Tree para controlar el comportamiento del enemigo.
+Actualización de la clave del punto de patrulla actual
+La clave del punto de patrulla actual se utiliza para rastrear hacia dónde debe moverse el enemigo a continuación.
+
+En el Behavior Tree, agrega lógica para actualizar la clave del punto de patrulla actual cuando el enemigo llega a un punto de patrulla.
+Configura la lógica para seleccionar el siguiente punto de patrulla en función de la rutina de patrullaje del enemigo.
+Superposición de un punto de patrulla
+La superposición de un punto de patrulla permite al enemigo detectar cuando ha llegado a un punto de patrulla específico.
+
+En el Editor de Niveles, configura volúmenes de superposición en los puntos de patrulla.
+Utiliza estos volúmenes para desencadenar eventos en el Behavior Tree cuando el enemigo llega a un punto de patrulla.
+Ejecución del Behavior Tree en el Controlador de IA
+El Controlador de IA es responsable de ejecutar el Behavior Tree y controlar el comportamiento del enemigo.
+
+En el Blueprint del controlador de IA, agrega la lógica para ejecutar el Behavior Tree.
+Configura el controlador de IA para que posea el enemigo y controle su comportamiento en función del Behavior Tree.
+Enseñar a nuestra IA a caminar con el Behavior Tree
+El Behavior Tree se utiliza para definir cómo el enemigo debe moverse y comportarse en el nivel.
+
+En el Behavior Tree, agrega tareas de movimiento para controlar cómo el enemigo camina y navega por el nivel.
+Configura las tareas para que el enemigo camine hacia puntos específicos o patrulle áreas del nivel.
+Selección de los puntos de patrulla en la instancia de BP_EnemyCharacter
+Los puntos de patrulla deben seleccionarse dinámicamente para que el enemigo pueda moverse de manera inteligente por el nivel.
+
+En el Blueprint del personaje enemigo, agrega lógica para seleccionar los puntos de patrulla en función del estado del enemigo o del entorno.
+Configura la lógica para que el enemigo navegue entre los puntos de patrulla seleccionados.
+Hacer que la IA persiga al jugador
+Hacer que la IA persiga al jugador añade un elemento de desafío y emoción al juego.
+
+En el Behavior Tree, agrega tareas para que el enemigo detecte y persiga al jugador.
+Configura las condiciones bajo las cuales el enemigo debe comenzar a perseguir al jugador, como detectar la presencia del jugador.
+Darle al enemigo capacidad de visión con PawnSensing
+La capacidad de visión permite al enemigo detectar al jugador y reaccionar en consecuencia.
+
+En el Blueprint del personaje enemigo, agrega un componente PawnSensing.
+Configura el componente PawnSensing para que el enemigo detecte al jugador y otros objetos en el entorno.
+Creación de una tarea de Behavior Tree
+Las tareas del Behavior Tree definen acciones específicas que el enemigo debe realizar.
+
+En el Behavior Tree, crea una nueva tarea para definir una acción específica, como atacar al jugador.
+Configura la tarea para que se ejecute en función de las condiciones y el estado del enemigo.
+Adición de condiciones al Behavior Tree
+Las condiciones en el Behavior Tree controlan cuándo se deben ejecutar ciertas tareas.
+
+En el Behavior Tree, agrega condiciones para verificar el estado del enemigo o del entorno.
+Configura las condiciones para que las tareas se ejecuten solo cuando se cumplan ciertos criterios.
+Creación de un comportamiento de persecución
+El comportamiento de persecución permite al enemigo seguir y atacar al jugador de manera efectiva.
+
+En el Behavior Tree, agrega tareas y condiciones para definir el comportamiento de persecución.
+Configura la lógica para que el enemigo persiga al jugador y realice acciones específicas, como atacar, cuando esté lo suficientemente cerca.
+
+*** 10 Mejora de los Enemigos IA
+En este capítulo, aprenderemos a crear una experiencia de juego más atractiva al modificar la IA de los zombis para que tengan estados, lo que les dará un poco más de inteligencia. Configuraremos los estados de patrulla, búsqueda y ataque para los zombis utilizando la detección visual y auditiva. Además, exploraremos cómo hacer que aparezcan nuevos enemigos gradualmente durante el juego.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Creación de un ataque enemigo
+Creación de una tarea de ataque
+Uso de la tarea de ataque en el Behavior Tree
+Actualización del medidor de salud
+Hacer que los enemigos oigan y investiguen sonidos
+Adición de audición al Behavior Tree
+Configuración de las tareas de investigación
+Creación de variables y una macro para actualizar el Blackboard
+Interpretación y almacenamiento de los datos del evento de ruido
+Adición de ruido a las acciones del jugador
+Hacer que los enemigos sean destructibles
+Generación de más enemigos durante el juego
+Creación del Blueprint BP_EnemySpawner
+Creación del comportamiento de vagabundeo enemigo
+Identificación de un punto de vagabundeo con una tarea personalizada
+Adición de vagabundeo al Behavior Tree
+Últimos ajustes y pruebas
+Creación de un ataque enemigo
+Para que los enemigos puedan atacar al jugador, necesitamos definir un comportamiento de ataque en el Blueprint del enemigo.
+
+En el Blueprint del personaje enemigo, crea una nueva función para el ataque.
+Define la lógica del ataque, como infligir daño al jugador o realizar una animación de ataque.
+Conecta la función de ataque al Behavior Tree para que se active en el momento adecuado.
+Creación de una tarea de ataque
+Las tareas de ataque en el Behavior Tree definen cómo y cuándo el enemigo debe realizar un ataque.
+
+En el Behavior Tree, crea una nueva tarea para el ataque.
+Configura la tarea para que se ejecute cuando el enemigo esté lo suficientemente cerca del jugador.
+Define las condiciones bajo las cuales el enemigo debe realizar el ataque, como la distancia al jugador o el estado del enemigo.
+Uso de la tarea de ataque en el Behavior Tree
+El Behavior Tree controla el flujo de comportamiento del enemigo, incluyendo cuándo debe atacar.
+
+En el Behavior Tree, agrega la tarea de ataque al flujo de comportamiento del enemigo.
+Configura las condiciones y transiciones para que la tarea de ataque se active en el momento adecuado.
+Actualización del medidor de salud
+El medidor de salud del enemigo debe actualizarse cuando el enemigo recibe daño o se cura.
+
+En el Blueprint del personaje enemigo, crea una variable para rastrear la salud del enemigo.
+Utiliza nodos de eventos para actualizar la variable de salud cuando el enemigo recibe daño.
+Conecta la variable de salud a la interfaz de usuario para mostrar la salud del enemigo al jugador.
+Hacer que los enemigos oigan y investiguen sonidos
+La capacidad de los enemigos para oír y reaccionar a los sonidos añade una capa adicional de realismo e inmersión al juego.
+
+En el Blueprint del personaje enemigo, agrega un componente de audición para detectar sonidos.
+Configura el componente de audición para que el enemigo reaccione a ciertos sonidos, como pasos o disparos.
+Define el comportamiento de investigación para que el enemigo busque la fuente del sonido cuando lo detecte.
+Adición de audición al Behavior Tree
+El Behavior Tree debe incluir lógica para manejar la detección de sonidos y la investigación.
+
+En el Behavior Tree, agrega condiciones y tareas para manejar la detección de sonidos.
+Configura la lógica para que el enemigo investigue la fuente del sonido cuando lo detecte.
+Configuración de las tareas de investigación
+Las tareas de investigación definen cómo el enemigo debe buscar la fuente de un sonido detectado.
+
+En el Behavior Tree, crea tareas de investigación para que el enemigo busque la fuente del sonido.
+Define el comportamiento de investigación, como moverse hacia la ubicación del sonido o buscar en un área específica.
+Creación de variables y una macro para actualizar el Blackboard
+Las variables y macros en el Blackboard se utilizan para almacenar y actualizar datos que el Behavior Tree necesita para tomar decisiones.
+
+En el Blackboard, crea variables para almacenar información relevante, como la ubicación del jugador o el estado del enemigo.
+Crea una macro para actualizar estas variables en función de los eventos del juego.
+Interpretación y almacenamiento de los datos del evento de ruido
+Los datos del evento de ruido deben interpretarse y almacenarse para que el enemigo pueda reaccionar adecuadamente.
+
+En el Blueprint del personaje enemigo, agrega lógica para interpretar los datos del evento de ruido.
+Almacena estos datos en el Blackboard para que el Behavior Tree pueda acceder a ellos.
+Adición de ruido a las acciones del jugador
+Agregar ruido a las acciones del jugador permite que los enemigos detecten al jugador en función de sus acciones.
+
+En el Blueprint del personaje del jugador, agrega lógica para generar ruido cuando el jugador realiza ciertas acciones, como correr o disparar.
+Configura la lógica para que el ruido se propague en el entorno y sea detectado por los enemigos.
+Hacer que los enemigos sean destructibles
+Hacer que los enemigos sean destructibles permite al jugador eliminarlos y progresar en el juego.
+
+En el Blueprint del personaje enemigo, agrega lógica para manejar la destrucción del enemigo cuando su salud llega a cero.
+Configura la lógica para eliminar al enemigo del juego y proporcionar retroalimentación al jugador.
+Generación de más enemigos durante el juego
+Generar más enemigos durante el juego puede aumentar la dificultad y mantener el desafío.
+
+Crea un nuevo Blueprint para un generador de enemigos.
+En el Blueprint del generador de enemigos, agrega lógica para generar nuevos enemigos en intervalos específicos.
+Configura la lógica para que los nuevos enemigos aparezcan en ubicaciones aleatorias o predefinidas en el nivel.
+Creación del Blueprint BP_EnemySpawner
+El Blueprint del generador de enemigos controla la generación de nuevos enemigos durante el juego.
+
+Crea un nuevo Blueprint basado en la clase Actor.
+En el Blueprint del generador de enemigos, agrega lógica para generar nuevos enemigos en intervalos específicos.
+Configura la lógica para que los nuevos enemigos aparezcan en ubicaciones aleatorias o predefinidas en el nivel.
+Creación del comportamiento de vagabundeo enemigo
+El comportamiento de vagabundeo permite a los enemigos moverse de manera impredecible por el nivel.
+
+En el Behavior Tree, agrega tareas y condiciones para definir el comportamiento de vagabundeo.
+Configura la lógica para que el enemigo se mueva a ubicaciones aleatorias o patrulle áreas específicas del nivel.
+Identificación de un punto de vagabundeo con una tarea personalizada
+Los puntos de vagabundeo son ubicaciones específicas en el nivel donde el enemigo puede moverse durante su comportamiento de vagabundeo.
+
+En el Behavior Tree, crea una tarea personalizada para identificar puntos de vagabundeo.
+Configura la tarea para que el enemigo se mueva a estos puntos de manera impredecible.
+Adición de vagabundeo al Behavior Tree
+El Behavior Tree debe incluir lógica para manejar el comportamiento de vagabundeo del enemigo.
+
+En el Behavior Tree, agrega tareas y condiciones para definir el comportamiento de vagabundeo.
+Configura la lógica para que el enemigo se mueva a ubicaciones aleatorias o patrulle áreas específicas del nivel.
+Últimos ajustes y pruebas
+Realizar ajustes finales y pruebas es esencial para asegurarse de que el comportamiento de los enemigos sea el esperado.
+
+Prueba el comportamiento de los enemigos en el nivel para asegurarte de que funcionen correctamente.
+Realiza ajustes en el Behavior Tree y los Blueprints según sea necesario para mejorar el comportamiento de los enemigos.
+
+*** 11 Estados de Juego y Aplicación de los Toques Finales
+En este capítulo, agregaremos los toques finales necesarios para hacer que nuestro juego sea una experiencia completa antes de finalizarlo para su lanzamiento. Implementaremos rondas que harán que el juego sea cada vez más difícil, guardaremos el progreso del jugador para que pueda retomarlo, y añadiremos la muerte del jugador para darle significado al desafío del juego.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Hacer que el peligro sea real con la muerte del jugador
+Configuración de una pantalla de derrota
+Mostrar la pantalla de derrota
+Creación de rondas basadas en escalado con juegos guardados
+Almacenamiento de información del juego utilizando la clase SaveGame
+Guardar información del juego
+Cargar información del juego
+Incremento del objetivo de la ronda
+Creación de una pantalla de transición a mostrar entre rondas
+Transición a una nueva ronda cuando se gana la ronda actual
+Pausar el juego y restablecer el archivo de guardado
+Creación de un menú de pausa
+Reanudar el juego
+Restablecer el archivo de guardado
+Activación del menú de pausa
+Hacer que el peligro sea real con la muerte del jugador
+La muerte del jugador añade una capa de desafío y consecuencia al juego, haciendo que el peligro sea real.
+
+En el Blueprint del personaje del jugador, agrega lógica para manejar la muerte del jugador cuando su salud llega a cero.
+Configura la lógica para mostrar una pantalla de derrota y restablecer el nivel o el estado del juego cuando el jugador muere.
+Configuración de una pantalla de derrota
+La pantalla de derrota proporciona al jugador una confirmación visual de su fracaso y opciones para continuar.
+
+Crea un nuevo Widget Blueprint para la pantalla de derrota.
+En el Widget Blueprint de la pantalla de derrota, agrega elementos de UI para mostrar información relevante, como el puntaje del jugador o opciones para reiniciar el nivel.
+Configura la lógica para mostrar la pantalla de derrota cuando el jugador muere.
+Mostrar la pantalla de derrota
+Mostrar la pantalla de derrota es esencial para proporcionar retroalimentación al jugador y permitirle continuar o reiniciar el juego.
+
+En el Blueprint del personaje del jugador, agrega lógica para mostrar la pantalla de derrota cuando el jugador muere.
+Configura la lógica para manejar las opciones de la pantalla de derrota, como reiniciar el nivel o volver al menú principal.
+Creación de rondas basadas en escalado con juegos guardados
+Las rondas basadas en escalado aumentan la dificultad del juego gradualmente, proporcionando un desafío progresivo.
+
+En el Level Blueprint, crea variables para rastrear el progreso del jugador a lo largo de las rondas.
+Utiliza nodos de eventos y acciones para incrementar la dificultad del juego en cada ronda.
+Configura la lógica para guardar y cargar el progreso del jugador entre rondas.
+Almacenamiento de información del juego utilizando la clase SaveGame
+La clase SaveGame se utiliza para almacenar información del juego que debe persistir entre sesiones de juego.
+
+Crea una nueva clase SaveGame para almacenar datos como el progreso del jugador y la configuración del juego.
+Define las variables y estructuras necesarias para almacenar la información del juego.
+Implementa la lógica para guardar y cargar datos utilizando la clase SaveGame.
+Guardar información del juego
+Guardar la información del juego permite al jugador retomar su progreso en una sesión posterior.
+
+En el Level Blueprint, agrega lógica para guardar la información del juego en intervalos específicos o cuando el jugador lo solicite.
+Utiliza la clase SaveGame para almacenar datos como el progreso del jugador y la configuración del juego.
+Cargar información del juego
+Cargar la información del juego permite al jugador continuar desde donde lo dejó en una sesión anterior.
+
+En el Level Blueprint, agrega lógica para cargar la información del juego al inicio del juego o cuando el jugador lo solicite.
+Utiliza la clase SaveGame para recuperar datos como el progreso del jugador y la configuración del juego.
+Incremento del objetivo de la ronda
+Incrementar el objetivo de la ronda aumenta la dificultad y el desafío del juego a medida que el jugador progresa.
+
+En el Level Blueprint, agrega lógica para incrementar el objetivo de la ronda en cada ronda subsiguiente.
+Configura la lógica para ajustar la dificultad del juego en función del objetivo de la ronda.
+Creación de una pantalla de transición a mostrar entre rondas
+Una pantalla de transición proporciona al jugador una pausa visual y contextual entre rondas.
+
+Crea un nuevo Widget Blueprint para la pantalla de transición.
+En el Widget Blueprint de la pantalla de transición, agrega elementos de UI para mostrar información relevante, como el progreso del jugador o el objetivo de la próxima ronda.
+Configura la lógica para mostrar la pantalla de transición entre rondas.
+Transición a una nueva ronda cuando se gana la ronda actual
+Transicionar a una nueva ronda cuando se gana la ronda actual mantiene el flujo del juego y aumenta la dificultad progresivamente.
+
+En el Level Blueprint, agrega lógica para detectar cuando el jugador gana la ronda actual.
+Configura la lógica para transicionar a la siguiente ronda y aumentar la dificultad del juego.
+Pausar el juego y restablecer el archivo de guardado
+Pausar el juego y restablecer el archivo de guardado permite al jugador tomar un descanso o reiniciar su progreso.
+
+En el Level Blueprint, agrega lógica para manejar la pausa del juego y restablecer el archivo de guardado.
+Configura la lógica para guardar el progreso del jugador cuando se pausa el juego y restablecerlo cuando se reanuda.
+Creación de un menú de pausa
+Un menú de pausa proporciona al jugador opciones para pausar el juego, guardar el progreso o ajustar la configuración.
+
+Crea un nuevo Widget Blueprint para el menú de pausa.
+En el Widget Blueprint del menú de pausa, agrega elementos de UI para mostrar opciones como continuar, guardar y salir.
+Configura la lógica para manejar las opciones del menú de pausa.
+Reanudar el juego
+Reanudar el juego permite al jugador continuar desde donde lo dejó después de pausar.
+
+En el Level Blueprint, agrega lógica para reanudar el juego desde el menú de pausa.
+Configura la lógica para restaurar el estado del juego y continuar el progreso del jugador.
+Restablecer el archivo de guardado
+Restablecer el archivo de guardado permite al jugador reiniciar su progreso desde el principio.
+
+En el Level Blueprint, agrega lógica para restablecer el archivo de guardado y reiniciar el progreso del jugador.
+Configura la lógica para manejar la opción de restablecimiento en el menú de pausa.
+Activación del menú de pausa
+Activar el menú de pausa proporciona al jugador acceso a las opciones de pausa durante el juego.
+
+En el Level Blueprint, agrega lógica para activar el menú de pausa cuando el jugador lo solicita.
+Configura la lógica para mostrar el menú de pausa y manejar las opciones disponibles.
+
+*** 12 Construcción y Publicación
+En este capítulo, aprenderemos a optimizar la configuración gráfica para que nuestro juego funcione y se vea lo mejor posible, y a configurar la información del proyecto para su distribución. Luego, aprenderemos a crear builds compartibles del juego para diversas plataformas.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Optimización de la configuración gráfica
+Configuración del juego para que otros puedan jugarlo
+Empaquetado del juego en un build
+Configuraciones y ajustes de empaquetado
+Optimización de la configuración gráfica
+Optimizar la configuración gráfica es crucial para asegurar que tu juego funcione sin problemas y se vea bien en diferentes sistemas.
+
+En el Editor de Unreal Engine, accede a las configuraciones del proyecto.
+Ajusta las configuraciones gráficas, como la resolución, la calidad de las texturas y los efectos visuales, para equilibrar el rendimiento y la calidad visual.
+Prueba el juego en diferentes sistemas para asegurarte de que las configuraciones sean adecuadas para una amplia gama de hardware.
+Configuración del juego para que otros puedan jugarlo
+Antes de distribuir tu juego, es importante configurarlo para que otros puedan jugarlo sin problemas.
+
+Asegúrate de que todos los activos necesarios estén incluidos en el proyecto y que no haya dependencias faltantes.
+Configura las opciones de juego, como los controles y la configuración de audio, para que sean accesibles y personalizables.
+Prueba el juego exhaustivamente para identificar y corregir cualquier error o problema de rendimiento.
+Empaquetado del juego en un build
+Empaquetar el juego en un build es el proceso de prepararlo para su distribución. Esto incluye compilar todos los activos y códigos en un formato ejecutable.
+
+En el Editor de Unreal Engine, selecciona la opción de empaquetado para crear un build del juego.
+Configura las opciones de empaquetado, como la plataforma de destino y las configuraciones de compilación.
+Ejecuta el proceso de empaquetado para generar el build del juego.
+Configuraciones y ajustes de empaquetado
+Las configuraciones de empaquetado determinan cómo se compila y distribuye tu juego.
+
+Selecciona la configuración de build adecuada para tu proyecto, como una build de desarrollo o una build de lanzamiento.
+Ajusta las configuraciones de empaquetado para optimizar el rendimiento y el tamaño del build.
+Prueba el build en diferentes plataformas para asegurarte de que funcione correctamente en todos los sistemas de destino.
+
+*** 13 Estructuras de Datos y Control de Flujo
+En este capítulo, exploraremos qué son las estructuras de datos y cómo se pueden utilizar para organizar datos en Blueprints. Aprenderemos sobre el concepto de contenedores y cómo usar arrays, sets y maps para agrupar múltiples elementos. También veremos otras formas de organizar datos utilizando enumeraciones, estructuras y tablas de datos. Además, aprenderemos a controlar el flujo de ejecución de un Blueprint utilizando varios tipos de nodos de control de flujo.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Exploración de diferentes tipos de contenedores
+Array
+Set
+Map
+Exploración de otras estructuras de datos
+Enumeraciones
+Estructuras
+Tablas de datos
+Exploración de diferentes tipos de contenedores
+Los contenedores son estructuras de datos que permiten almacenar múltiples elementos en una sola unidad. En Blueprints, los contenedores más comunes son los arrays, sets y maps.
+
+Array
+Un array es una colección ordenada de elementos del mismo tipo. Cada elemento en un array se puede acceder mediante un índice.
+
+Para crear un array en un Blueprint, usa el panel "My Blueprint" y selecciona "Add Variable".
+Define el tipo de variable como "Array" y especifica el tipo de elementos que contendrá.
+Utiliza nodos de array para agregar, eliminar o acceder a elementos en el array.
+Set
+Un set es una colección no ordenada de elementos únicos. A diferencia de los arrays, los sets no permiten elementos duplicados.
+
+Crea un set en el panel "My Blueprint" seleccionando "Add Variable" y definiendo el tipo como "Set".
+Utiliza nodos de set para agregar o eliminar elementos, y para verificar si un elemento está presente en el set.
+Map
+Un map es una colección de pares clave-valor. Cada clave está asociada a un valor único, lo que permite un acceso rápido a los datos.
+
+Para crear un map, usa el panel "My Blueprint" y selecciona "Add Variable".
+Define el tipo de variable como "Map" y especifica los tipos de clave y valor.
+Utiliza nodos de map para agregar, eliminar o acceder a elementos en el map mediante sus claves.
+Exploración de otras estructuras de datos
+Además de los contenedores, Blueprints ofrece otras estructuras de datos que permiten organizar y gestionar datos de manera eficiente.
+
+Enumeraciones
+Las enumeraciones son tipos de datos que permiten definir un conjunto de valores nombrados. Son útiles para representar opciones o estados específicos.
+
+Crea una enumeración en el panel "My Blueprint" seleccionando "Add Enumeration".
+Define los valores nombrados que formarán parte de la enumeración.
+Utiliza la enumeración en variables y nodos para representar y gestionar estados o opciones en tu Blueprint.
+Estructuras
+Las estructuras permiten agrupar múltiples variables de diferentes tipos en una sola unidad. Son útiles para representar objetos complejos con múltiples atributos.
+
+Crea una estructura en el panel "My Blueprint" seleccionando "Add Structure".
+Define las variables que formarán parte de la estructura y sus tipos.
+Utiliza la estructura en variables y nodos para acceder y modificar sus atributos.
+Tablas de datos
+Las tablas de datos permiten almacenar datos en un formato tabular, similar a una hoja de cálculo. Son útiles para gestionar grandes conjuntos de datos estructurados.
+
+Crea una tabla de datos en el panel "My Blueprint" seleccionando "Add Data Table".
+Define las columnas y filas de la tabla, y especifica los tipos de datos para cada columna.
+Utiliza nodos de tabla de datos para acceder y manipular los datos almacenados en la tabla.
+
+*** 14 Matemáticas y Nodos de Trazado
+En este capítulo, cubriremos algunos conceptos matemáticos esenciales para juegos en 3D. Aprenderemos la diferencia entre coordenadas mundiales y locales y cómo utilizarlas al trabajar con componentes. También exploraremos cómo usar vectores para representar posición, dirección, velocidad y distancia. Además, aprenderemos sobre el concepto de trazados y los diferentes tipos de trazados disponibles. Finalmente, veremos cómo usar trazados para probar colisiones en el juego.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Coordenadas mundiales y relativas
+Puntos y vectores
+Representación de un vector
+Operaciones con vectores
+Introducción a los trazados y funciones de trazado
+Trazados para objetos
+Trazados por canal
+Trazados de forma
+Líneas de depuración
+Ejemplo de vectores y nodos de trazado
+Coordenadas mundiales y relativas
+En un entorno 3D, las coordenadas mundiales son fijas y se utilizan para definir la posición de los objetos en el mundo del juego. Las coordenadas relativas, por otro lado, son específicas de un objeto y se utilizan para definir posiciones en relación con ese objeto.
+
+Las coordenadas mundiales se utilizan para posicionar objetos en el nivel.
+Las coordenadas relativas se utilizan para posicionar componentes dentro de un objeto.
+Convierte entre coordenadas mundiales y relativas según sea necesario para calcular posiciones y movimientos.
+Puntos y vectores
+Los puntos y vectores son fundamentales para la matemática 3D y se utilizan para definir posiciones y direcciones.
+
+Puntos: Representan una ubicación específica en el espacio 3D.
+Vectores: Representan una dirección y una magnitud desde un punto de origen.
+Representación de un vector
+Un vector se puede representar utilizando sus componentes X, Y y Z, que indican la dirección y la magnitud en cada eje.
+
+Un vector (X, Y, Z) define una dirección desde el origen (0, 0, 0) hasta el punto (X, Y, Z).
+Los vectores se pueden utilizar para calcular posiciones, direcciones y velocidades en el juego.
+Operaciones con vectores
+Las operaciones con vectores permiten realizar cálculos matemáticos que son esenciales para la física y el movimiento en juegos.
+
+Suma y resta: Se utilizan para calcular nuevas posiciones o direcciones.
+Multiplicación escalar: Se utiliza para cambiar la magnitud de un vector sin afectar su dirección.
+Producto escalar: Se utiliza para calcular el ángulo entre dos vectores o proyectar un vector sobre otro.
+Introducción a los trazados y funciones de trazado
+Los trazados se utilizan para detectar colisiones y calcular intersecciones entre objetos en el juego.
+
+Trazados para objetos: Detectan colisiones con objetos específicos.
+Trazados por canal: Detectan colisiones con tipos específicos de objetos, como el terreno o los personajes.
+Trazados de forma: Detectan colisiones con formas geométricas, como esferas o cajas.
+Líneas de depuración
+Las líneas de depuración se utilizan para visualizar trazados y vectores en el Editor de Unreal Engine. Son útiles para depurar y ajustar el comportamiento del juego.
+
+Utiliza nodos de líneas de depuración para dibujar líneas en el Viewport que representan trazados o vectores.
+Ajusta las propiedades de las líneas de depuración, como el color y la duración, para mejorar la visualización.
+Ejemplo de vectores y nodos de trazado
+Un ejemplo práctico de cómo usar vectores y nodos de trazado en un Blueprint puede ayudar a entender mejor estos conceptos.
+
+Crea un Blueprint que utilice vectores para calcular la dirección y velocidad de un objeto en movimiento.
+Utiliza nodos de trazado para detectar colisiones con otros objetos en el nivel.
+Ajusta las propiedades de los trazados y vectores para lograr el comportamiento deseado.
+
+*** 15 Consejos sobre Blueprints
+En este capítulo, se proporcionan varios consejos para mejorar la calidad de tus Blueprints. Aprenderemos a utilizar diversos atajos del Editor que aceleran nuestro trabajo. También se demostrarán algunas prácticas recomendadas de Blueprints que te ayudarán a decidir dónde y qué tipo de implementaciones deben realizarse. Finalmente, aprenderemos sobre otros nodos misceláneos útiles de Blueprints.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Atajos del Editor de Blueprints
+Prácticas recomendadas de Blueprints
+Responsabilidades de Blueprints
+Gestión de complejidades de Blueprints
+Uso de nodos misceláneos de Blueprints
+Select
+Teletransportar
+Atajos del Editor de Blueprints
+Los atajos del Editor de Blueprints son esenciales para mejorar la eficiencia y la velocidad de desarrollo.
+
+Aprende los atajos de teclado comunes para navegar y editar Blueprints rápidamente.
+Utiliza atajos para agregar nodos, conectar pines y ajustar propiedades sin necesidad de usar el ratón.
+Personaliza los atajos de teclado en la configuración del Editor para adaptarlos a tus preferencias.
+Prácticas recomendadas de Blueprints
+Seguir las prácticas recomendadas de Blueprints ayuda a mantener el código organizado y fácil de entender.
+
+Mantén los Blueprints simples y modulares, dividiendo la lógica en funciones y macros cuando sea posible.
+Utiliza comentarios y nombres descriptivos para nodos y variables para mejorar la legibilidad.
+Prueba y depura tus Blueprints regularmente para identificar y corregir errores rápidamente.
+Responsabilidades de Blueprints
+Definir claramente las responsabilidades de cada Blueprint ayuda a mantener un diseño de sistema claro y organizado.
+
+Asigna una responsabilidad específica a cada Blueprint, como manejar la entrada del jugador o controlar la IA del enemigo.
+Evita sobrecargar un solo Blueprint con demasiadas responsabilidades; en su lugar, distribuye la lógica entre múltiples Blueprints.
+Documenta las responsabilidades de cada Blueprint para facilitar la colaboración y el mantenimiento.
+Gestión de complejidades de Blueprints
+Gestionar la complejidad de los Blueprints es crucial para mantener un proyecto manejable y escalable.
+
+Utiliza subgráficos y macros para encapsular lógica compleja y mantener los Blueprints principales limpios y organizados.
+Refactoriza regularmente los Blueprints para simplificar la lógica y eliminar redundancias.
+Considera el uso de Blueprint Libraries para compartir funcionalidades comunes entre múltiples Blueprints.
+Uso de nodos misceláneos de Blueprints
+Los nodos misceláneos de Blueprints son herramientas útiles que pueden mejorar la funcionalidad y la eficiencia de tus Blueprints.
+
+Select
+El nodo Select se utiliza para elegir entre múltiples opciones en función de una condición.
+
+Utiliza el nodo Select para implementar lógica condicional de manera clara y concisa.
+Conecta diferentes opciones al nodo Select y define la condición que determina cuál se seleccionará.
+Teletransportar
+El nodo Teletransportar se utiliza para mover instantáneamente un objeto de una ubicación a otra.
+
+Utiliza el nodo Teletransportar para implementar movimientos rápidos o teletransportaciones en tu juego.
+Define las ubicaciones de origen y destino para el teletransporte y configura cualquier opción adicional, como la rotación.
+
+*** 16 Introducción al Desarrollo de Realidad Virtual
+En este capítulo, exploraremos algunos conceptos de realidad virtual (RV) y la plantilla de RV en Unreal Engine. Este capítulo explora las funcionalidades del Blueprint VRPawn de la plantilla de RV y explica cómo crear objetos que pueden ser agarrados por el jugador utilizando controladores de movimiento. También aprenderemos sobre las funciones de Blueprint utilizadas para implementar la teletransportación y cómo usar la interfaz para la comunicación de Blueprints. Además, veremos cómo funciona el menú en la plantilla de RV.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Exploración de la plantilla de RV
+El Blueprint VRPawn
+Teletransportación
+Interacción con el menú
+Agarre de objetos
+Exploración de la plantilla de RV
+La plantilla de RV en Unreal Engine proporciona una base sólida para desarrollar experiencias de realidad virtual.
+
+Crea un nuevo proyecto utilizando la plantilla de RV en Unreal Engine.
+Explora los componentes y configuraciones predefinidas que vienen con la plantilla.
+Familiarízate con las herramientas y funcionalidades específicas de RV disponibles en el Editor.
+El Blueprint VRPawn
+El Blueprint VRPawn es un componente clave en la plantilla de RV que maneja la representación del jugador en el entorno virtual.
+
+Abre el Blueprint VRPawn en el Editor de Blueprints.
+Explora los componentes y nodos que definen el comportamiento del jugador en RV.
+Ajusta las configuraciones del VRPawn para personalizar la experiencia del jugador.
+Teletransportación
+La teletransportación es una técnica común en RV que permite al jugador moverse rápidamente de una ubicación a otra sin causar mareos.
+
+En el Blueprint VRPawn, explora los nodos y funciones relacionados con la teletransportación.
+Configura las opciones de teletransportación, como los destinos y las animaciones de transición.
+Prueba la teletransportación en el entorno de RV para asegurarte de que funcione sin problemas.
+Interacción con el menú
+El menú en la plantilla de RV permite al jugador interactuar con la interfaz de usuario en el entorno virtual.
+
+Explora el Blueprint del menú en la plantilla de RV.
+Configura las opciones del menú y los elementos de interfaz de usuario para adaptarlos a tu experiencia de RV.
+Prueba la interacción con el menú en el entorno de RV para asegurarte de que sea intuitiva y funcional.
+Agarre de objetos
+Permitir que los jugadores agarren objetos en el entorno de RV añade una capa de inmersión y interactividad.
+
+En el Editor de Blueprints, crea un nuevo Blueprint para un objeto que pueda ser agarrado.
+Configura los componentes y nodos necesarios para habilitar la funcionalidad de agarre.
+Prueba el agarre de objetos en el entorno de RV para asegurarte de que la interacción sea fluida y natural.
+
+*** 17 Animation Blueprints
+En este capítulo, se presentan los elementos principales del sistema de animación de Unreal Engine, incluyendo el Esqueleto, la Malla Esquelética, las Secuencias de Animación y los Espacios de Mezcla. Se explica cómo crear un Animation Blueprint utilizando el Event Graph y el Anim Graph. También se explica cómo se utilizan las máquinas de estado en una animación y cómo crear nuevos estados para una animación.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Visión general de la animación
+Editor de Animación
+Esqueleto y Malla Esquelética
+Secuencia de Animación
+Espacio de Mezcla
+Creación de Animation Blueprints
+EventGraph
+AnimGraph
+Exploración de Máquinas de Estado
+Modificación del Character Blueprint
+Visión general de la animación
+El sistema de animación de Unreal Engine es robusto y flexible, permitiendo la creación de personajes y objetos animados complejos.
+
+Familiarízate con los componentes clave del sistema de animación, como el Esqueleto, la Malla Esquelética y las Secuencias de Animación.
+Aprende cómo estos componentes interactúan para crear animaciones fluidas y realistas.
+Editor de Animación
+El Editor de Animación es una herramienta poderosa para crear y editar animaciones en Unreal Engine.
+
+Abre el Editor de Animación desde el Content Browser seleccionando una secuencia de animación.
+Explora las diferentes herramientas y paneles del Editor de Animación para editar y previsualizar animaciones.
+Utiliza el Editor de Animación para ajustar las propiedades de las animaciones y crear transiciones suaves entre ellas.
+Esqueleto y Malla Esquelética
+El Esqueleto y la Malla Esquelética son componentes fundamentales del sistema de animación.
+
+Esqueleto: Define la estructura de huesos que controla la deformación de la malla durante la animación.
+Malla Esquelética: Es la representación visual del personaje o objeto que se anima.
+Crea y configura un Esqueleto para definir la estructura de los huesos.
+Asocia una Malla Esquelética al Esqueleto para controlar su deformación durante la animación.
+Secuencia de Animación
+Las Secuencias de Animación son los bloques de construcción básicos de las animaciones en Unreal Engine.
+
+Crea una nueva Secuencia de Animación en el Content Browser.
+Utiliza el Editor de Animación para definir los fotogramas clave y las transiciones de la secuencia.
+Previsualiza la secuencia de animación para asegurarte de que se vea y se comporte como se espera.
+Espacio de Mezcla
+Los Espacios de Mezcla permiten combinar múltiples animaciones para crear transiciones suaves y realistas.
+
+Crea un Espacio de Mezcla en el Content Browser.
+Define las animaciones que se mezclarán y configura los parámetros de mezcla.
+Utiliza el Espacio de Mezcla en el Anim Graph para crear transiciones suaves entre animaciones.
+Creación de Animation Blueprints
+Los Animation Blueprints permiten controlar las animaciones utilizando la lógica de Blueprints.
+
+EventGraph
+El EventGraph en un Animation Blueprint se utiliza para manejar eventos y acciones que afectan las animaciones.
+
+Abre el Animation Blueprint y explora el EventGraph.
+Agrega nodos de eventos y acciones para controlar el comportamiento de las animaciones.
+Conecta el EventGraph con el Anim Graph para aplicar la lógica de Blueprints a las animaciones.
+AnimGraph
+El Anim Graph es el núcleo del Animation Blueprint, donde se definen las transiciones y mezclas de animaciones.
+
+En el Anim Graph, agrega nodos de estado y transición para definir el flujo de la animación.
+Utiliza nodos de mezcla para combinar múltiples animaciones y crear transiciones suaves.
+Conecta el Anim Graph con el EventGraph para aplicar la lógica de Blueprints a las animaciones.
+Exploración de Máquinas de Estado
+Las Máquinas de Estado en un Animation Blueprint permiten definir estados y transiciones de animación de manera organizada.
+
+En el Anim Graph, agrega una Máquina de Estado para definir los estados de la animación.
+Configura las transiciones entre estados utilizando nodos de condición y acción.
+Prueba la Máquina de Estado para asegurarte de que las transiciones de animación sean fluidas y naturales.
+Modificación del Character Blueprint
+Modificar el Character Blueprint permite personalizar el comportamiento y la apariencia de los personajes animados.
+
+Abre el Character Blueprint y explora sus componentes y nodos.
+Agrega o modifica animaciones y comportamientos para personalizar el personaje.
+Prueba el Character Blueprint en el nivel para asegurarte de que las animaciones y comportamientos sean los esperados.
+
+*** 18 Creación de Bibliotecas y Componentes de Blueprint
+En este capítulo, aprenderemos a crear Bibliotecas de Macros y Funciones de Blueprint con funcionalidades comunes que se pueden utilizar en todo el proyecto. También exploraremos en detalle el concepto de componentes, y aprenderemos a crear Componentes de Actor con comportamiento encapsulado y Componentes de Escena con comportamiento basado en la ubicación.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Bibliotecas de Macros y Funciones de Blueprint
+Ejemplo de una Biblioteca de Funciones de Blueprint
+Creación de la tercera función y pruebas
+Creación de Componentes de Actor
+Prueba del Componente de Actor
+Creación de un Componente de Spline
+Componente de Malla de Spline
+Bibliotecas de Macros y Funciones de Blueprint
+Las Bibliotecas de Macros y Funciones de Blueprint permiten compartir funcionalidades comunes entre múltiples Blueprints, mejorando la modularidad y reutilización del código.
+
+Ejemplo de una Biblioteca de Funciones de Blueprint
+Crea una nueva Biblioteca de Funciones de Blueprint en el Content Browser.
+Agrega funciones comunes que puedan ser utilizadas en diferentes partes del proyecto.
+Utiliza la Biblioteca de Funciones en otros Blueprints para acceder a las funciones compartidas.
+Creación de la tercera función y pruebas
+En la Biblioteca de Funciones de Blueprint, crea una nueva función para una funcionalidad específica.
+Implementa la lógica de la función y prueba su comportamiento en un Blueprint de prueba.
+Ajusta la función según sea necesario para asegurar que funcione correctamente en diferentes contextos.
+Creación de Componentes de Actor
+Los Componentes de Actor son unidades modulares que pueden ser agregadas a Actores para proporcionarles comportamiento adicional.
+
+Prueba del Componente de Actor
+Crea un nuevo Componente de Actor en el Editor de Blueprints.
+Implementa la lógica del componente para proporcionar el comportamiento deseado.
+Agrega el Componente de Actor a un Actor en el nivel y prueba su funcionalidad.
+Creación de un Componente de Spline
+Los Componentes de Spline permiten definir caminos y trayectorias en el nivel utilizando curvas de spline.
+
+Componente de Malla de Spline
+Crea un nuevo Componente de Spline en el Editor de Blueprints.
+Configura el Componente de Spline para definir un camino o trayectoria en el nivel.
+Utiliza el Componente de Spline para controlar el movimiento de un Actor a lo largo del camino definido.
+
+*** 19 Generación Procedimental
+En este capítulo, exploraremos varias formas de generar contenido de nivel de manera automática. Podemos usar el script de construcción de un Blueprint para generar contenido procedimental y utilizar la herramienta Spline para definir un camino que se usará como referencia para posicionar las instancias. También podemos crear un Blueprint de Utilidad del Editor para manipular activos y actores en el modo de edición.
+
+En este capítulo, cubriremos los siguientes temas:
+
+Generación procedimental con el Script de Construcción
+Creación del script para agregar las instancias en el nivel
+Creación de Blueprints de Spline
+Creación de un Componente de Malla de Spline
+Creación de un Producto Configurador utilizando el Administrador de Variantes
+La plantilla del Configurador de Producto
+El panel del Administrador de Variantes y los Conjuntos de Variantes
+El Blueprint BP_Configurator
+Generación procedimental con el Script de Construcción
+El Script de Construcción en un Blueprint permite generar contenido de nivel de manera automática durante el tiempo de ejecución.
+
+Creación del script para agregar las instancias en el nivel
+Crea un nuevo Blueprint y agrega un Script de Construcción.
+Utiliza el Script de Construcción para definir la lógica de generación de instancias en el nivel.
+Configura las propiedades de las instancias generadas, como la posición y la rotación.
+Prueba el Script de Construcción en el nivel para asegurarte de que las instancias se generen correctamente.
+Creación de Blueprints de Spline
+Los Blueprints de Spline permiten definir caminos y trayectorias en el nivel utilizando curvas de spline.
+
+Creación de un Componente de Malla de Spline
+Crea un nuevo Blueprint y agrega un Componente de Spline.
+Configura el Componente de Spline para definir un camino o trayectoria en el nivel.
+Utiliza el Componente de Spline para controlar el movimiento de un Actor a lo largo del camino definido.
+Agrega un Componente de Malla de Spline para visualizar el camino en el nivel.
+Creación de un Producto Configurador utilizando el Administrador de Variantes
+El Administrador de Variantes permite definir diferentes configuraciones de un producto, lo que es útil para crear configuradores de productos interactivos.
+
+La plantilla del Configurador de Producto
+Utiliza la plantilla del Configurador de Producto para crear un nuevo proyecto de configurador.
+Explora los componentes y nodos que vienen con la plantilla para entender cómo funciona.
+Personaliza la plantilla para adaptarla a las necesidades específicas de tu configurador de producto.
+El panel del Administrador de Variantes y los Conjuntos de Variantes
+En el Editor de Unreal Engine, abre el panel del Administrador de Variantes.
+Crea Conjuntos de Variantes para definir diferentes configuraciones de tu producto.
+Configura las propiedades de cada variante para personalizar la apariencia y el comportamiento del producto.
+El Blueprint BP_Configurator
+Explora el Blueprint BP_Configurator que viene con la plantilla del Configurador de Producto.
+Personaliza el Blueprint para adaptarlo a las necesidades específicas de tu configurador de producto.
+Prueba el Blueprint en el nivel para asegurarte de que el configurador funcione correctamente.
+
+*** 20 
+</pre>
