@@ -1,85 +1,78 @@
-<H1>
-  Explorando el Editor de Blueprints
-</H1>
-
-<p>
-  Bienvenido al increíble mundo del desarrollo de juegos con Unreal Engine 5. 
-  En este libro, aprenderemos a desarrollar juegos en Unreal Engine utilizando el lenguaje de scripting visual Blueprints, creado por Epic Games para Unreal Engine.
-</p>
-<p>
-El primer paso necesario antes de que podamos aprender sobre Blueprints es preparar nuestro entorno de desarrollo. Unreal Engine es gratuito para descargar. Aprenderemos cómo instalar Unreal Engine 5 y crear un nuevo proyecto. 
-Después de eso, aprenderemos algunos de los conceptos básicos de Blueprints y exploraremos cada panel del Editor de Blueprints. 
-</p>
-<p>
-En este capítulo, cubriremos los siguientes temas:  
-</p>
-
-<p>
-  
-</p>
-
-<li>
-<ul>Instalación de Unreal Engine</ul>
-  <ul>Creación de nuevos proyectos y uso de plantillas</ul>
-  <ul>Scripting Visual de Blueprints</ul>
-  <ul>Interfaz del Editor de Clases de Blueprints</ul>
-  <ul>Agregar Componentes a un Blueprint</ul>
-  <ul>Instalando Unreal Engine</ul>
-  <ul>
+    <h1>Explorando el Editor de Blueprints</h1>
     
-  </ul>
-</li>  
-
-
-<pre>
-
-
-
+    <p>
+        Bienvenido al increíble mundo del desarrollo de juegos con Unreal Engine 5. 
+        En este libro, aprenderemos a desarrollar juegos en Unreal Engine utilizando el lenguaje de scripting visual Blueprints, creado por Epic Games para Unreal Engine.
+    </p>
+    
+    <p>
+        El primer paso necesario antes de que podamos aprender sobre Blueprints es preparar nuestro entorno de desarrollo. Unreal Engine es gratuito para descargar. Aprenderemos cómo instalar Unreal Engine 5 y crear un nuevo proyecto. 
+        Después de eso, aprenderemos algunos de los conceptos básicos de Blueprints y exploraremos cada panel del Editor de Blueprints.
+    </p>
+    
+    <p>En este capítulo, cubriremos los siguientes temas:</p>
+    
+    <ul>
+        <li>Instalación de Unreal Engine</li>
+        <li>Creación de nuevos proyectos y uso de plantillas</li>
+        <li>Scripting Visual de Blueprints</li>
+        <li>Interfaz del Editor de Clases de Blueprints</li>
+        <li>Agregar Componentes a un Blueprint</li>
+        <li>Instalando Unreal Engine</li>
+    </ul>
+    
+    <pre>
 Para usar Unreal Engine, primero debes instalar el Epic Games Launcher:
 
-Accede al sitio web en https://www.unrealengine.com.
-Regístrate y descarga el Epic Games Launcher.
-Instala y abre el launcher.
-Haz clic en la pestaña Unreal Engine en el lado izquierdo.
-Haz clic en la pestaña Library que aparece en la parte superior de la pantalla.
-Haz clic en el botón + junto a ENGINE VERSIONS para agregar una versión de Unreal Engine al launcher. Puedes usar la versión más reciente disponible.
-Haz clic en el botón Install. El launcher comenzará a descargar los archivos necesarios para la instalación y puede tardar un tiempo en completarse.
-Haz clic en el botón Launch para iniciar una versión ya instalada. Es posible tener múltiples versiones de Unreal Engine instaladas en la misma máquina; simplemente configura una de ellas como la versión actual. El botón Launch en la parte superior derecha del launcher iniciará la versión actual.
-Figura 1.1 - Lanzando Unreal Engine
-
-El sistema de scripting visual Blueprints ya es una tecnología bien establecida y estable. Este libro usa la versión 5.0.0, pero los ejemplos creados en este libro deberían funcionar sin problemas en versiones posteriores.
-
-Creando nuevos proyectos y usando plantillas
-Después de iniciar Unreal Engine Editor, aparecerá el Unreal Project Browser. La caja Recientes Proyectos en la parte superior izquierda se usa para abrir proyectos existentes y las otras cajas en el lado izquierdo son categorías de plantillas usadas para crear un nuevo proyecto. La siguiente captura de pantalla muestra las plantillas de la categoría Juegos.
-
-Figura 1.2 - Plantillas en la categoría Juegos
-
-Las plantillas son contenedores básicos con algunos archivos clave y un nivel que proporcionan un punto de partida básico para diferentes tipos de proyectos. Son útiles para la prototipación rápida o para aprender los mecanismos básicos de un tipo específico de proyecto. El uso de plantillas es opcional. Todas las plantillas se pueden recrear simplemente en la plantilla en blanco. A continuación, se describen cada una de las plantillas en la categoría Juegos:
-
-First Person: Para juegos con perspectiva en primera persona. Esta plantilla presenta un personaje jugador representado por un par de brazos equipados con un arma que dispara una simple esfera como proyectil. El personaje puede ser movido por el nivel usando un teclado, controlador o joystick virtual en un dispositivo táctil.
-Handheld AR: Para aplicaciones de realidad aumentada en dispositivos Android e iOS. Esta plantilla presenta lógica en tiempo de ejecución para alternar el modo AR encendido y apagado, junto con algún código de ejemplo para la detección de impactos y manejo de estimación de luz.
-Third Person: Contiene un personaje jugable con una cámara que lo sigue. La cámara está posicionada detrás y ligeramente por encima del personaje. El personaje tiene animaciones de caminar, correr y saltar y puede ser movido por el nivel usando un teclado, controlador o joystick virtual en un dispositivo táctil.
-Top Down: Contiene un personaje controlado por un mouse con una cámara a gran distancia por encima de él. El personaje del jugador es controlado usando un mouse o pantalla táctil para hacer clic en el destino requerido y usa el sistema de navegación para evitar obstáculos al moverse a los destinos. Esta vista desde arriba se usa a menudo en juegos de rol de acción.
-Virtual Reality: Contiene las características esenciales para juegos de realidad virtual. Esta plantilla presenta locomoción por teletransporte, objetos agarrables, objetos interactivos y una cámara espectadora de VR. La plantilla tiene un nivel donde el jugador puede moverse y contiene objetos que se pueden agarrar e interactuar.
-Vehicle: Contiene un vehículo regular y un vehículo complejo con suspensión. El nivel de esta plantilla contiene una pista simple y obstáculos.
-En la parte inferior derecha del Unreal Project Browser, se encuentran las Configuraciones Predeterminadas del Proyecto con opciones de configuración del proyecto disponibles para la plantilla seleccionada. En los ejemplos de este libro, usaremos los valores seleccionados en la captura de pantalla. Estas opciones se pueden modificar más tarde en el proyecto, y son las siguientes:
-
-Blueprint/C++: Hay plantillas hechas con Blueprint o el lenguaje de programación C++. En este libro, solo usaremos plantillas de Blueprint. Un proyecto en Unreal Engine 5 se puede desarrollar usando Blueprint, C++ o una combinación de ambos. Puedes agregar código C++ a proyectos de Blueprint y Blueprint a proyectos C++.
-Plataforma de Destino: Escritorio o Móvil. Usa Escritorio si estás desarrollando tu proyecto para su uso en computadoras o consolas de juegos. Elige Móvil si tu proyecto se verá en un dispositivo móvil. En este libro, usaremos la opción Escritorio.
-Preset de Calidad: Escalable o Máximo. Estas opciones afectan el rendimiento del proyecto. La opción Escalable deshabilita algunas características complejas, y la opción Máximo habilita todas las características disponibles en la plataforma de destino. En este libro, usaremos la opción Escalable.
-Contenido de Inicio: Si esta casilla está marcada, el proyecto incluirá Contenido de Inicio. El Contenido de Inicio es un paquete de contenido con mallas simples, materiales y efectos de partículas. Los ejemplos en este libro asumen que se está utilizando el Contenido de Inicio.
-Raytracing: Si esta casilla está marcada, el proyecto usará raytracing en tiempo real, que es una característica intensiva en rendimiento. Los ejemplos en este libro no usarán raytracing.
-Selecciona la plantilla Third Person, elige una carpeta de ubicación y completa el campo Nombre para el proyecto. Selecciona las Configuraciones Predeterminadas del Proyecto mencionadas en la lista anterior y luego haz clic en el botón Crear. Después de que el proyecto se cargue, se mostrará el Editor de Niveles de Unreal Engine, como se muestra en la siguiente captura de pantalla:
-
-Figura 1.3 - El Editor de Niveles de Unreal Engine
-
-Estos son los paneles clave del Editor de Niveles:
-
-Barra de Herramientas: Ubicada en la parte superior del Editor de Niveles. Contiene botones con operaciones comúnmente usadas. Los botones de la barra de herramientas están separados en cuatro grupos. El primer grupo desde la izquierda proporciona acceso rápido a funciones como guardar tu trabajo y agregar varios objetos y código al proyecto. El segundo grupo de botones se usa para cambiar el modo de edición del Editor de Niveles. El tercer grupo permite jugar el nivel actual y proporciona varias opciones específicas de plataforma. El botón Configuraciones final en la parte derecha proporciona acceso fácil a la configuración del proyecto.
-Visor: Ubicado en el centro del Editor de Niveles. Muestra el Nivel que se está creando. Puedes usar el panel del Visor para moverte por el Nivel y agregar objetos en el Nivel. Al mantener presionado el botón derecho del mouse, mueve el mouse para rotar la cámara y usa las teclas WASD para moverte.
-Explorador de Contenido: Se puede acceder haciendo clic en el botón Content Drawer ubicado en la esquina inferior izquierda del Editor de Niveles. Se usa para gestionar los activos del proyecto. Un activo es una pieza de contenido en un proyecto de Unreal Engine. Por ejemplo, Materiales, Mallas Estáticas y Blueprints son todos activos. Si arrastras un activo desde el Explorador de Contenido y lo sueltas en el Nivel, el Editor crea una copia del activo para colocar en el Nivel.
-Organizador: Ubicado a la derecha del Editor de Niveles. Lista los objetos que están en el Nivel.
-Detalles: Ubicado a la derecha del Editor de Niveles, debajo de Organizador. Muestra las propiedades editables de un objeto que está seleccionado en el Visor.
-Ahora que tenemos una visión general del Editor de Niveles de Unreal Engine, centrémonos en el Scripting Visual de Blueprints.
-
-</pre>
+1. Accede al sitio web en https://www.unrealengine.com.
+2. Regístrate y descarga el Epic Games Launcher.
+3. Instala y abre el launcher.
+4. Haz clic en la pestaña Unreal Engine en el lado izquierdo.
+5. Haz clic en la pestaña Library que aparece en la parte superior de la pantalla.
+6. Haz clic en el botón + junto a ENGINE VERSIONS para agregar una versión de Unreal Engine al launcher. Puedes usar la versión más reciente disponible.
+7. Haz clic en el botón Install. El launcher comenzará a descargar los archivos necesarios para la instalación y puede tardar un tiempo en completarse.
+8. Haz clic en el botón Launch para iniciar una versión ya instalada. Es posible tener múltiples versiones de Unreal Engine instaladas en la misma máquina; simplemente configura una de ellas como la versión actual. El botón Launch en la parte superior derecha del launcher iniciará la versión actual.
+    </pre>
+    
+    <h2>Creando nuevos proyectos y usando plantillas</h2>
+    
+    <p>
+        Después de iniciar Unreal Engine Editor, aparecerá el Unreal Project Browser. La caja "Recientes Proyectos" en la parte superior izquierda se usa para abrir proyectos existentes y las otras cajas en el lado izquierdo son categorías de plantillas usadas para crear un nuevo proyecto.
+    </p>
+    
+    <p>Las plantillas en la categoría Juegos incluyen:</p>
+    
+    <ul>
+        <li><strong>First Person:</strong> Para juegos en primera persona con un personaje que usa un arma.</li>
+        <li><strong>Handheld AR:</strong> Para aplicaciones de realidad aumentada en dispositivos Android e iOS.</li>
+        <li><strong>Third Person:</strong> Para juegos en tercera persona con un personaje jugable.</li>
+        <li><strong>Top Down:</strong> Para juegos con vista cenital, como RPGs de acción.</li>
+        <li><strong>Virtual Reality:</strong> Para juegos de realidad virtual con interacción básica.</li>
+        <li><strong>Vehicle:</strong> Para juegos con vehículos y físicas avanzadas.</li>
+    </ul>
+    
+    <h2>Configuraciones Predeterminadas del Proyecto</h2>
+    
+    <ul>
+        <li><strong>Blueprint/C++:</strong> Se puede desarrollar usando Blueprint, C++ o ambos.</li>
+        <li><strong>Plataforma de Destino:</strong> Escritorio o Móvil.</li>
+        <li><strong>Preset de Calidad:</strong> Escalable o Máximo.</li>
+        <li><strong>Contenido de Inicio:</strong> Con o sin contenido base.</li>
+        <li><strong>Raytracing:</strong> Activar o desactivar trazado de rayos en tiempo real.</li>
+    </ul>
+    
+    <p>Selecciona la plantilla "Third Person", elige una carpeta de ubicación y asigna un nombre al proyecto. Luego, haz clic en "Crear".</p>
+    
+    <h2>El Editor de Niveles de Unreal Engine</h2>
+    
+    <p>Después de crear el proyecto, se mostrará el Editor de Niveles de Unreal Engine.</p>
+    
+    <ul>
+        <li><strong>Barra de Herramientas:</strong> Contiene botones para guardar, agregar objetos y acceder a configuraciones.</li>
+        <li><strong>Visor:</strong> Muestra el nivel actual y permite moverse en él.</li>
+        <li><strong>Explorador de Contenido:</strong> Gestiona los activos del proyecto.</li>
+        <li><strong>Organizador:</strong> Lista los objetos en el nivel.</li>
+        <li><strong>Detalles:</strong> Muestra propiedades editables de un objeto seleccionado.</li>
+    </ul>
+    
+    <p>Ahora que tenemos una visión general del Editor de Niveles, nos enfocaremos en el Scripting Visual de Blueprints.</p>
