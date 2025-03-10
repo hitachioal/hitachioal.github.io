@@ -1,4 +1,179 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendiendo Unreal Engine 5.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 1200px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            height: 250px;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+        .nav {
+            background: #444;
+            display: flex;
+            justify-content: center;
+        }
+        .nav ul {
+            list-style: none;
+            display: flex;
+        }
+        .nav ul li {
+            position: relative;
+        }
+        .nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .nav ul li a:hover {
+            background: #555;
+        }
+        .nav ul li ul {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #666;
+            display: none;
+            min-width: 150px;
+        }
+        .nav ul li:hover > ul {
+            display: block;
+        }
+        .nav ul li ul li {
+            position: relative;
+        }
+        .nav ul li ul li a {
+            padding: 10px 15px;
+        }
+        .nav ul li ul li ul {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background: #777;
+            display: none;
+            min-width: 150px;
+        }
+        .nav ul li ul li:hover > ul {
+            display: block;
+        }
+        .nav ul li ul li ul.adjust-left {
+            left: auto;
+            right: 100%;
+        }
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            justify-items: center;
+        }
+        .card {
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            text-align: center;
+        }
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .card p {
+            padding: 10px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            background: #222;
+            color: white;
+            padding: 20px;
+        }
+        .footer div {
+            width: 32%;
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".nav ul li ul li").forEach(function(submenu) {
+                submenu.addEventListener("mouseenter", function() {
+                    var submenuElement = submenu.querySelector("ul");
+                    if (submenuElement) {
+                        var rect = submenuElement.getBoundingClientRect();
+                        if (rect.right > window.innerWidth) {
+                            submenuElement.classList.add("adjust-left");
+                        } else {
+                            submenuElement.classList.remove("adjust-left");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+        <div class="header">Cabecera</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li>
+                    <a href="#">Nosotros</a>
+                    <ul>
+                        <li><a href="#">Historia</a></li>
+                        <li><a href="#">Equipo</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Servicios</a>
+                    <ul>
+                        <li><a href="#">Diseño Web</a></li>
+                        <li><a href="#">Desarrollo</a></li>
+                        <li>
+                            <a href="#">Más Servicios</a>
+                            <ul>
+                                <li><a href="#">SEO</a></li>
+                                <li><a href="#">Marketing</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container">
 MyCharacter.h
 <code>
   #pragma once
@@ -171,3 +346,11 @@ void AMyCharacter::Interactuar()
     }
 }
 </code>
+    </div>
+    <div class="footer container">
+            <div>Columna 1</div>
+            <div>Columna 2</div>
+            <div>Columna 3</div>
+    </div>
+</body>
+</html>
