@@ -1,0 +1,32 @@
+
+h
+
+<pre>
+
+#pragma once  // Asegura que este archivo de cabecera solo se incluya una vez en la compilación
+
+// Inclusión de los archivos de cabecera esenciales para el modo de juego en Unreal Engine
+#include "CoreMinimal.h"  // Incluye las funcionalidades básicas de Unreal Engine
+#include "GameFramework/GameModeBase.h"  // Incluye la clase base AGameModeBase
+#include "MultiplayerCourseGameMode.generated.h"  // Incluye el archivo generado automáticamente por Unreal Header Tool
+
+// Declaración de la clase con la macro UCLASS para que pueda ser utilizada en el sistema de Unreal Engine
+UCLASS(minimalapi)
+class AMultiplayerCourseGameMode : public AGameModeBase  // Clase derivada de AGameModeBase, usada para definir la lógica del modo de juego
+{
+    GENERATED_BODY()  // Macro que genera el código necesario para la reflexión y el sistema de Unreal Engine
+
+public:
+    // Constructor de la clase
+    AMultiplayerCourseGameMode();
+
+    // Función expuesta a Blueprints para hospedar una partida
+    UFUNCTION(BlueprintCallable)  // Permite llamar esta función desde Blueprints
+    void HostLANGame();  // Método para alojar un juego LAN
+
+    // Función expuesta a Blueprints para unirse a una partida
+    UFUNCTION(BlueprintCallable)  // Permite llamar esta función desde Blueprints
+    void JoinLANGame();  // Método para unirse a un juego LAN
+};
+
+</pre>
