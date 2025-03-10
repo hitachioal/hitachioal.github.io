@@ -174,14 +174,15 @@
         </nav>
     </div>
     <div class="container">
-MyCharacter.h
+<H2>MyCharacter.h</H2>
 <pre>
-  #pragma once
+	
+#pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "GameFramework/SpringArmComponent.h" // Componente que maneja una distancia fija para la c�mara.
-#include "Camera/CameraComponent.h" // Componente de c�mara para vistas en tercera persona.
+#include "GameFramework/SpringArmComponent.h" // Permite controlar la posición de la cámara con un brazo extensible.
+#include "Camera/CameraComponent.h" // Componente de cámara para la vista del jugador.
 #include "MyCharacter.generated.h"
 
 UCLASS()
@@ -190,161 +191,196 @@ class TEMPLATEC_API AMyCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+	// Constructor: Inicializa las propiedades del personaje.
 	AMyCharacter();
 
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Collision")
-	//UCapsuleComponent* CapsuleComponent;
-
-	UPROPERTY(EditAnywhere, Category = "Components")
-	TObjectPtr<USceneComponent> Root;
-
-	//UPROPERTY(EditAnywhere, Category = "Components")
-	//TObjectPtr<UArrowComponent> ArrowComponent;
-
-	// Componente SpringArm: posiciona la c�mara a una distancia fija y permite que se ajuste autom�ticamente.
+	/** 📌 Componente de cámara */
 	UPROPERTY(EditAnywhere, Category = "Components")
 	TObjectPtr<USpringArmComponent> SpringArmComp{ nullptr };
 
-	// Componente de c�mara: proporciona la vista en tercera persona del personaje.
+	/** 📌 Cámara del personaje */
 	UPROPERTY(EditAnywhere, Category = "Components")
 	TObjectPtr<UCameraComponent> CameraComp{ nullptr };
 
-	// Actor interactuable actual
-	UPROPERTY(EditAnywhere, Category = "CurrentInteractableActor")
-	//AActor* CurrentInteractableActor;
-	TObjectPtr<AActor> CurrentInteractableActor;
+	/** 📌 Actor interactuable actual */
+	UPROPERTY(EditAnywhere, Category = "Interaction")
+	TObjectPtr<AActor> CurrentInteractableActor{ nullptr };
 
 protected:
-	// Called when the game starts or when spawned
+	// Llamado cuando el juego comienza o el personaje es generado.
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+public:
+	// Llamado cada frame.
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
+	// Configura los controles del personaje.
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Función para interactuar con objetos en el mundo.
 	void Interactuar();
+
+	void MoveForward(float Value);
+	void MoveRight(float Value);
+	void LookUp(float Value);
+	void Turn(float Value);
 };
+		
 </pre>
 
+<H2>MyCharacter.cpp</H2>
 
-MyCharacter.cpp
 
 <pre>
-  #include "MyCharacter.h"
-#include <Components/CapsuleComponent.h>
+	
+#include "MyCharacter.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "UObject/ConstructorHelpers.h"
-//#include "Components/ArrowComponent.h"
-#include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h" // Controla el movimiento del personaje.
+#include "Components/CapsuleComponent.h" // Componente de colisión del personaje.
+#include "Animation/AnimInstance.h" // Para asignar Animation Blueprints.
+#include "UObject/ConstructorHelpers.h" // Permite cargar recursos desde el editor.
+#include "Core/I_Interactuable.h" // Interfaz para objetos interactuables.
 
-#include "Core/I_Interactuable.h"
-#include "Animation/AnimInstance.h" // Necesario para trabajar con Animation Blueprints
-#include "GameFramework/CharacterMovementComponent.h" // Maneja el movimiento del personaje.
-
-// Sets default values
+// Constructor
 AMyCharacter::AMyCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Habilita Tick() cada frame (se puede desactivar para optimizar).
 	PrimaryActorTick.bCanEverTick = true;
 
-    // Configuraci�n del Skeletal Mesh
-    static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultMesh(TEXT("/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple.SKM_Manny_Simple"));
-    if (DefaultMesh.Succeeded())
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Default SkeletalMesh Loaded Successfully!"));
-        GetMesh()->SetSkeletalMesh(DefaultMesh.Object);
-        GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
-        GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-    }
-    else
-    {
-        UE_LOG(LogTemp, Error, TEXT("Failed to Load Default SkeletalMesh!"));
-    }
+	// 📌 Configuración del Skeletal Mesh
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultMesh(TEXT("/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple.SKM_Manny_Simple"));
+	if (DefaultMesh.Succeeded())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("✅ Default SkeletalMesh Loaded Successfully!"));
+		GetMesh()->SetSkeletalMesh(DefaultMesh.Object);
+		GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -90.0f));
+		GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("❌ Failed to Load Default SkeletalMesh!"));
+	}
 
-    // Configuraci�n del Animation Blueprint
-    static ConstructorHelpers::FClassFinder<UAnimInstance> DefaultAnimBP(TEXT("/Game/Characters/Mannequins/Animations/ABP_Character"));
-    if (DefaultAnimBP.Succeeded())
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Default Animation Blueprint Loaded Successfully!"));
-        GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
-        GetMesh()->SetAnimInstanceClass(DefaultAnimBP.Class);
-    }
-    else
-    {
-        UE_LOG(LogTemp, Error, TEXT("Failed to Load Animation Blueprint!"));
-    }
+	// 📌 Configuración del Animation Blueprint
+	static ConstructorHelpers::FClassFinder<UAnimInstance> DefaultAnimBP(TEXT("/Game/Characters/Mannequins/Animations/ABP_Character.ABP_Character_C"));
+	if (DefaultAnimBP.Succeeded())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("✅ Default Animation Blueprint Loaded Successfully!"));
+		GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+		GetMesh()->SetAnimInstanceClass(DefaultAnimBP.Class);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("❌ Failed to Load Animation Blueprint!"));
+	}
 
+	// 📌 Configuración del movimiento del personaje
+	GetCharacterMovement()->bOrientRotationToMovement = true; // El personaje rota hacia la dirección del movimiento.
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
 
-    // Configuraci�n del movimiento del personaje
-    GetCharacterMovement()->bOrientRotationToMovement = true; // Rotaci�n hacia la direcci�n del movimiento
-    bUseControllerRotationYaw = false;
-    bUseControllerRotationPitch = false;
-    bUseControllerRotationRoll = false;
+	// 📌 Configuración de la cámara
+	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
+	SpringArmComp->SetupAttachment(RootComponent);
+	SpringArmComp->TargetArmLength = 300.0f; // Distancia de la cámara al personaje.
+	SpringArmComp->bUsePawnControlRotation = true; // Usa la rotación del control del jugador.
 
-    // Crear el componente Arrow y agregarlo a la ra�z del personaje
-    //ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
-    //ArrowComponent->SetupAttachment(RootComponent); // Lo agregamos al componente ra�z
+	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
+	CameraComp->SetupAttachment(SpringArmComp, USpringArmComponent::SocketName);
 
-    // Configuraci�n de la c�mara
-    SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
-    SpringArmComp->SetupAttachment(RootComponent);
-    SpringArmComp->TargetArmLength = 300.0f;
-    SpringArmComp->bUsePawnControlRotation = true;
+	// 📌 Configuración del CapsuleComponent (ya existente en ACharacter)
+	UCapsuleComponent* Capsule = GetCapsuleComponent();
+	if (Capsule)
+	{
+		Capsule->InitCapsuleSize(42.0f, 96.0f);
+		Capsule->SetCapsuleHalfHeight(100.f);
 
-    CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
-    CameraComp->SetupAttachment(SpringArmComp, USpringArmComponent::SocketName);
+		// Configuración de colisión
+		Capsule->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		Capsule->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
+		Capsule->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
 
-    // Accede al CapsuleComponent que ya viene con la clase ACharacter
-    UCapsuleComponent* Capsule = GetCapsuleComponent();
-    if (Capsule)
-    {
-        // Cambia el tama�o del radio y la altura del c�psula
-        Capsule->InitCapsuleSize(42.0f, 96.0f);
-        Capsule->SetCapsuleHalfHeight(100.f);
-        Capsule->SetCollisionEnabled(ECollisionEnabled::QueryOnly); // Solo detecta colisiones, no bloquea
-        Capsule->SetCollisionObjectType(ECC_WorldDynamic); // Tipo de objeto: din�mico
-        Capsule->SetCollisionResponseToAllChannels(ECR_Ignore); // Ignorar todos los canales por defecto
-        Capsule->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap); // Detectar solapamientos con personajes
-        Capsule->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap); // Detectar actores interactuables
-        Capsule->SetupAttachment(RootComponent);
-        Capsule->SetGenerateOverlapEvents(true); // Asegurar que genera eventos de solapamiento
-
-        // Configura las colisiones
-        Capsule->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-        Capsule->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
-        Capsule->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
-
-        // Opcional: Cambia otros par�metros, como el canal de colisi�n o propiedades f�sicas
-        Capsule->SetSimulatePhysics(false); // Si no quieres simulaci�n f�sica en el c�psula
-    }
+		UE_LOG(LogTemp, Log, TEXT("✅ CapsuleComponent Configured"));
+	}
 }
 
+// 📌 Llamado cuando el personaje es generado
 void AMyCharacter::BeginPlay()
-{	Super::BeginPlay(); }
+{
+	Super::BeginPlay();
+}
 
+// 📌 Llamado cada frame
 void AMyCharacter::Tick(float DeltaTime)
-{	Super::Tick(DeltaTime); }
+{
+	Super::Tick(DeltaTime);
+}
 
+// 📌 Configuración de controles del personaje
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{	Super::SetupPlayerInputComponent(PlayerInputComponent); }
+{
+	if (!PlayerInputComponent) return;
 
-// M�todo para realizar una interacci�n
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAxis("MoveForward", this, &AMyCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &AMyCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("LookUp", this, &AMyCharacter::LookUp);
+	PlayerInputComponent->BindAxis("Turn", this, &AMyCharacter::Turn);
+}
+
+// 📌 Movimiento hacia adelante/atrás
+void AMyCharacter::MoveForward(float Value)
+{
+	if (Controller && Value != 0.0f)
+	{
+		// Obtiene la rotación actual del controlador y solo usa la dirección hacia adelante
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FVector Direction = FRotationMatrix(Rotation).GetUnitAxis(EAxis::X);
+		AddMovementInput(Direction, Value);
+	}
+}
+
+// 📌 Movimiento hacia la derecha/izquierda
+void AMyCharacter::MoveRight(float Value)
+{
+	if (Controller && Value != 0.0f)
+	{
+		// Obtiene la rotación actual del controlador y solo usa la dirección hacia la derecha
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FVector Direction = FRotationMatrix(Rotation).GetUnitAxis(EAxis::Y);
+		AddMovementInput(Direction, Value);
+	}
+}
+
+// 📌 Movimiento de la cámara en vertical
+void AMyCharacter::LookUp(float Value)
+{
+	AddControllerPitchInput(Value);
+}
+
+// 📌 Movimiento de la cámara en horizontal
+void AMyCharacter::Turn(float Value)
+{
+	AddControllerYawInput(Value);
+}
+
+
+// 📌 Función para interactuar con objetos en el mundo
 void AMyCharacter::Interactuar()
 {
-    if (CurrentInteractableActor)
+    if (CurrentInteractableActor && CurrentInteractableActor->GetClass()->ImplementsInterface(UI_Interactuable::StaticClass()))
     {
         UE_LOG(LogTemp, Log, TEXT("Interactuando con: %s"), *CurrentInteractableActor->GetName());
         II_Interactuable::Execute_Interact(CurrentInteractableActor, this);
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("No hay ning�n actor interactuable."));
+        UE_LOG(LogTemp, Warning, TEXT("No hay ningún actor interactuable o no implementa la interfaz."));
     }
 }
+
 </pre>
     </div>
     <div class="footer container">
